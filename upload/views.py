@@ -21,6 +21,12 @@ from upload.models import Fscjob
 from upload.forms import FscjobForm
 from upload import views as uploadviews
 def list(request):
+
+    def form_valid(self, form):
+            form.send_email()
+            return super(FscjobView, self).form_valid(form)
+
+
     # Handle file upload
     if request.method == 'POST':
         form = FscjobForm(request.POST, request.FILES)
