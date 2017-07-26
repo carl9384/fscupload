@@ -20,9 +20,19 @@ from django.core.urlresolvers import reverse
 from upload.models import Fscjob
 from upload.forms import FscjobForm
 from upload import views as uploadviews
+from django.utils.crypto import get_random_string
+from django.utils import timezone
+from hashlib import sha3_512
+
+def generate_uniquestring():
+    hasher = sha3_512()
+    hasher.update(str(timezone.now()).encode('utf-8'))
+    return hasher.hexdigest()[:20]
+
 def list(request):
 
     def form_valid(self, form):
+            print('form is valid')
             form.send_email()
             return super(FscjobView, self).form_valid(form)
 
@@ -31,6 +41,7 @@ def list(request):
     if request.method == 'POST':
         form = FscjobForm(request.POST, request.FILES)
         if form.is_valid():
+            uniquefolder = generate_uniquestring()
             if 'maskfile' in request.FILES:
                 newdoc = Fscjob(halfmap1file = request.FILES['halfmap1file'],
                                 halfmap2file = request.FILES['halfmap2file'],
@@ -43,7 +54,15 @@ def list(request):
                                 sphericitythresh = request.POST['sphericitythresh'],
                                 highpassfilter = request.POST['highpassfilter']
                                 )
+                newdoc.halfmap1file.name = uniquefolder+newdoc.halfmap1file.name
+                newdoc.halfmap2file.name = uniquefolder+newdoc.halfmap2file.name
+                newdoc.maskfile.name = uniquefolder+newdoc.maskfile.name
+                
+                print('newdic is',newdoc.halfmap1file.name)
+                newdoc.save()
+                form.send_email()
             else:
+                print('form IS valid')
                 newdoc = Fscjob(halfmap1file = request.FILES['halfmap1file'],
                                 halfmap2file = request.FILES['halfmap2file'],
                                 fullmapfile  = request.FILES['fullmapfile'],
@@ -54,12 +73,19 @@ def list(request):
                                 sphericitythresh = request.POST['sphericitythresh'],
                                 highpassfilter = request.POST['highpassfilter']
                                 ) 
+                newdoc.halfmap1file.name = uniquefolder+newdoc.halfmap1file.name
+                newdoc.halfmap2file.name = uniquefolder+newdoc.halfmap2file.name
+                print('newdic is',newdoc.halfmap1file.name)
+                newdoc.save()
+                form.send_email()
+        else:
 
             newdoc.save()
 
             # Redirect to the document list after POST
             return HttpResponseRedirect(reverse(uploadviews.list))
     else:
+        print('form is not valid')
         form = FscjobForm() # A empty, unbound form
 
     # Load documents for the list page

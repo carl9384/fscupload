@@ -8,8 +8,8 @@ def send_upload_email(email, message):
     c = Context({'email': email, 'message': message})
 
     email_subject = render_to_string(
-        'upload/email/feedback_email_subject.txt', c).replace('\n', '')
-    email_body = render_to_string('upload/email/feedback_email_body.txt', c)
+        'upload/email/upload_email_subject.txt', c).replace('\n', '')
+    email_body = render_to_string('upload/email/upload_email_body.txt', c)
 
     email = EmailMessage(
         email_subject, email_body, email,

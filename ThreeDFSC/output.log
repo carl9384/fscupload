@@ -1,0 +1,7 @@
+
+[1;34;40mWelcome to 3DFSC Program Suite Version 2.3 [0;37;40m
+Downloaded from https://github.com/nysbc/Anisotropy
+Anaconda 3 is required to run this program, and UCSF Chimera to visualize some outputs. Please install them if they are not present.
+Please be patient: Program usually finishes in minutes, but can take up to hours to run for extremely large box sizes.
+
+[1;34;40mStep 01: Generating 3DFSC Volume [0;37;40m

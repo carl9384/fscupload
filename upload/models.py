@@ -1,9 +1,23 @@
 from django.db import models
 from django import conf
+from django.utils import timezone
+from hashlib import sha3_512
+
 
 # Create your models here.
 
 from django.db import models
+
+
+def generate_uniquestring(numchars):
+
+    assert type(numchars) == int
+    assert numchars > 0
+    assert numchars <21
+
+    hasher = sha3_512()
+    hasher.update(str(timezone.now()).encode('utf-8'))
+    return hasher.hexdigest()[:numchars]
 
 class Fscjob(models.Model):
 
@@ -17,6 +31,8 @@ class Fscjob(models.Model):
     fsccutoff = models.FloatField(default=0.143)
     sphericitythresh = models.FloatField(default=0.5)
     highpassfilter = models.FloatField(default=150.0)
+    uniquefolder = models.CharField(max_length=20,default=generate_uniquestring(20))
+    password = models.CharField(max_length=20,default=generate_uniquestring(10))
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
