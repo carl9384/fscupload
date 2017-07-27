@@ -14,16 +14,13 @@ class FscjobForm(forms.ModelForm):
 #    password = forms.CharField(widget=forms.HiddenInput(),required=True)
 
 
-    def __init__(self,*args,**kwargs):
-    	super(PatientForm, self).__init__(*args, **kwargs)
-    	self.fields['uniquefolder'].widget.attrs['readonly'] = True
     class Meta:
         model = Fscjob
         exclude = ['maskfile','uniquefolder','password']
 
 
 
-    def send_email(self):
+    def send_email(self,job_id):
         print('inside send_email function')
         # try to trick spammers by checking whether the honeypot field is
         # filled in; not super complicated/effective but it works
@@ -31,5 +28,5 @@ class FscjobForm(forms.ModelForm):
             return False
         send_upload_email_task.delay(
             #self.cleaned_data['emailaddress'], self.cleaned_data['message'])
-            self.cleaned_data['emailaddress'],'This is a test. Thanks for participating!')
+            self.cleaned_data['emailaddress'],'This is a test. Thanks for participating!',job_id)
 

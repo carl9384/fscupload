@@ -17,7 +17,7 @@ def generate_uniquestring(numchars):
 
     hasher = sha3_512()
     hasher.update(str(timezone.now()).encode('utf-8'))
-    return hasher.hexdigest()[:numchars]
+    return hasher.hexdigest()[-numchars:]
 
 class Fscjob(models.Model):
 

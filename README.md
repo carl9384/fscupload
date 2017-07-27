@@ -2,5 +2,9 @@ This is a Django app for uploading cryo-em maps to a remote server and processin
 
 --Carl
 
+
+I made some changes to the directory structure of ThreeDFSC so that it can be run programatically, rather than just through the command line.
+
+
 This link helped:
 http://www.bogotobogo.com/python/Django/Python_Django_Image_Files_Uploading_Example.php

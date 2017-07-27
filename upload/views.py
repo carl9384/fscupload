@@ -4,6 +4,7 @@ from django.shortcuts import render
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.conf import settings
 #from .forms import UploadFileForm
 #from django.forms import ModelFormWithFileField
 
@@ -17,10 +18,10 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from upload.models import Fscjob
+from upload.models import Fscjob,generate_uniquestring
 from upload.forms import FscjobForm
+from upload.tasks import process_3DFSC
 from upload import views as uploadviews
-from django.utils.crypto import get_random_string
 from django.utils import timezone
 from hashlib import sha3_512
 
@@ -31,17 +32,16 @@ def generate_uniquestring():
 
 def list(request):
 
-    def form_valid(self, form):
-            print('form is valid')
-            form.send_email()
-            return super(FscjobView, self).form_valid(form)
+    #def form_valid(self, form):
+    #        print('form is valid')
+    #        form.send_email()
+    #        return super(FscjobView, self).form_valid(form)
 
 
     # Handle file upload
     if request.method == 'POST':
         form = FscjobForm(request.POST, request.FILES)
         if form.is_valid():
-            uniquefolder = generate_uniquestring()
             if 'maskfile' in request.FILES:
                 newdoc = Fscjob(halfmap1file = request.FILES['halfmap1file'],
                                 halfmap2file = request.FILES['halfmap2file'],
@@ -54,13 +54,18 @@ def list(request):
                                 sphericitythresh = request.POST['sphericitythresh'],
                                 highpassfilter = request.POST['highpassfilter']
                                 )
+                newdoc.uniquefolder = generate_uniquestring()
+        
+                uniquefolder = newdoc.uniquefolder+"/"
                 newdoc.halfmap1file.name = uniquefolder+newdoc.halfmap1file.name
                 newdoc.halfmap2file.name = uniquefolder+newdoc.halfmap2file.name
+                newdoc.fullmapfile.name = uniquefolder+newdoc.fullmapfile.name
                 newdoc.maskfile.name = uniquefolder+newdoc.maskfile.name
                 
-                print('newdic is',newdoc.halfmap1file.name)
+                print('newdoc is',newdoc.halfmap1file.name)
                 newdoc.save()
-                form.send_email()
+                form.send_email(newdoc.id)
+                process_3DFSC(newdoc.id)
             else:
                 print('form IS valid')
                 newdoc = Fscjob(halfmap1file = request.FILES['halfmap1file'],
@@ -73,14 +78,18 @@ def list(request):
                                 sphericitythresh = request.POST['sphericitythresh'],
                                 highpassfilter = request.POST['highpassfilter']
                                 ) 
+                newdoc.uniquefolder = generate_uniquestring()
+                uniquefolder = newdoc.uniquefolder+"/"
                 newdoc.halfmap1file.name = uniquefolder+newdoc.halfmap1file.name
                 newdoc.halfmap2file.name = uniquefolder+newdoc.halfmap2file.name
-                print('newdic is',newdoc.halfmap1file.name)
+                newdoc.fullmapfile.name  = uniquefolder+newdoc.fullmapfile.name
+                print('newdoc is',newdoc.halfmap1file.name)
                 newdoc.save()
-                form.send_email()
+                form.send_email(newdoc.id)
+                process_3DFSC(newdoc.id)
         else:
 
-            newdoc.save()
+            #newdoc.save()
 
             # Redirect to the document list after POST
             return HttpResponseRedirect(reverse(uploadviews.list))
@@ -102,3 +111,5 @@ def list(request):
 
 def index(request):
     return HttpResponseRedirect(reverse(uploadviews.list))
+
+        
