@@ -11,4 +11,17 @@ def compress_files(src,dst,password='',clevel=1):
     glob_files = glob.glob(src,recursive=True)
     files = [item for item in glob_files if os.path.isfile(item) is True]
     pprint.pprint(files)
-    pyminizip.compress_multiple(files,dst,password,clevel)
+    files_unique = remove_duplicate_filenames(files)
+    pprint.pprint(files_unique)
+    pyminizip.compress_multiple(files_unique,dst,password,clevel)
+
+
+
+# Based on https://www.dotnetperls.com/duplicates-python
+
+def remove_duplicate_filenames(values):
+    output = []
+    for value in values:
+        if value.split("/")[-1] not in [item.split("/")[-1] for item in output]:
+            output.append(value)
+    return output

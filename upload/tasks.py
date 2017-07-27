@@ -6,6 +6,7 @@ from ThreeDFSCprog import ThreeDFSC_Start
 from upload.emails import send_upload_email
 from upload.models import Fscjob
 from upload.fscparams import fscparams
+from upload.compress import compress_files
 
 logger = get_task_logger(__name__)
 
@@ -37,5 +38,9 @@ def process_3DFSC(job_id):
     options = fscparams(job)
     logger.info("Process_3DFSC task launched")
     ThreeDFSC_Start.execute(options)
+    globdirectory = settings.MEDIA_ROOT+"/"+job.uniquefolder+"/"
+    print("Compress contents of directory ",globdirectory)
+    compress_files(globdirectory+"**",globdirectory+options.ThreeDFSC+".zip",job.password,1)
+
 
 
