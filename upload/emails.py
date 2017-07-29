@@ -2,7 +2,6 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template import Context
 from django.template.loader import render_to_string
-from upload.models import Fscjob
 
 def send_upload_email(email, message,job):
     c = Context({'email': email, 'message': message, 'job': job})
@@ -20,7 +19,7 @@ def send_upload_email(email, message,job):
 
 
 def send_processing_complete_email(job):
-    c = Context({'job':job})
+    c = Context({'job':job,'site_url':settings.SITE_URL})
 
     email_subject = render_to_string(
         'upload/email/upload_processing_complete_subject.txt',c).replace('\n','')

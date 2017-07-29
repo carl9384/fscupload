@@ -5,14 +5,6 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.conf import settings
-#from .forms import UploadFileForm
-#from django.forms import ModelFormWithFileField
-
-# Imaginary function to handle an uploaded file.
-#from somewhere import handle_uploaded_file
-
-
-
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -32,14 +24,8 @@ def generate_uniquestring():
 
 def list(request):
 
-    #def form_valid(self, form):
-    #        print('form is valid')
-    #        form.send_email()
-    #        return super(FscjobView, self).form_valid(form)
-
-
-    # Handle file upload
     if request.method == 'POST':
+
         form = FscjobForm(request.POST, request.FILES)
         if form.is_valid():
             if 'maskfile' in request.FILES:
@@ -69,7 +55,6 @@ def list(request):
                 form.send_email(newdoc.id)
                 process_3DFSC_task.delay(newdoc.id)
             else:
-                print('form IS valid')
                 newdoc = Fscjob(halfmap1file = request.FILES['halfmap1file'],
                                 halfmap2file = request.FILES['halfmap2file'],
                                 fullmapfile  = request.FILES['fullmapfile'],
@@ -95,9 +80,11 @@ def list(request):
             #newdoc.save()
 
             # Redirect to the document list after POST
-            return HttpResponseRedirect(reverse(uploadviews.list))
+            return HttpResponseRedirect(reverse(uploadviews.index))
+
+        
+        return HttpResponseRedirect(reverse(uploadviews.uploadcomplete))
     else:
-        print('form is not valid')
         form = FscjobForm() # A empty, unbound form
 
     # Load documents for the list page
@@ -115,4 +102,5 @@ def list(request):
 def index(request):
     return HttpResponseRedirect(reverse(uploadviews.list))
 
-        
+def uploadcomplete(request):
+    return render(request,'upload/uploadcomplete.html',{})

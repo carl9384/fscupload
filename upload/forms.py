@@ -13,7 +13,6 @@ class FscjobForm(forms.ModelForm):
 #    uniquefolder = forms.CharField(widget=forms.HiddenInput(),required=True)
 #    password = forms.CharField(widget=forms.HiddenInput(),required=True)
 
-
     class Meta:
         model = Fscjob
         exclude = ['maskfile','uniquefolder','password','completefile']

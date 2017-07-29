@@ -3,7 +3,7 @@
 
 Hi,
 
-Your "{{job.jobname | safe }}" 3DFSC job in now processing.
+Your 3DFSC job called {{ job.jobname | safe }} is now processing.
 
 You will receive an email shortly with instructions on how to retrieve your data.
 

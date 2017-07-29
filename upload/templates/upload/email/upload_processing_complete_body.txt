@@ -1,12 +1,14 @@
-{% comment %}{{message|linebreaks|safe}}
-{% endcomment %}
-
 Hi,
 
 Your {{job.jobname | safe }} 3DFSC job is now complete.
 
-You can download your compressed data here: <a href='{{job.completefile.url}}'>download</a>
-The password for the .zip file is "{{job.password}}".
+You can download your compressed data here: 
+
+	{{site_url}}{{job.completefile.url}}
+
+The password for the .zip file is
+
+	{{job.password}}
 
 Thanks for using 3DFSC,
 
