@@ -42,8 +42,15 @@ import matplotlib.lines as mlines
 import mrcfile
 import time
 
-from ThreeDFSCprog.ThreeDFSC import ThreeDFSC_ReleaseAug2017
-from ThreeDFSCprog.ThreeDFSC import ThreeDFSC_Analysis_V3
+#import ThreeDFSC_ReleaseAug2017
+#import ThreeDFSC_Analysis_V3
+
+if os.getcwd().split("/")[-1] == "ThreeDFSCprog":
+    from ThreeDFSC import ThreeDFSC_ReleaseAug2017
+    from ThreeDFSC import ThreeDFSC_Analysis_V3
+else:
+    from ThreeDFSCprog.ThreeDFSC import ThreeDFSC_ReleaseAug2017
+    from ThreeDFSCprog.ThreeDFSC import ThreeDFSC_Analysis_V3
 
 start_time = time.time()
 
@@ -67,31 +74,6 @@ def masking(inmrc,mask,masked_outmrc):
 	mrc_write.set_data(outarray.astype('<f4'))
 	mrc_write.close()
 	return os.path.abspath(str(masked_outmrc))
-
-parser = OptionParser(usage="usage: %prog [options]", version="%prog " + version)
-parser.add_option("--halfmap1", dest="halfmap1", action="store", type="string", help="First half map of 3D reconstruction. MRC format. Can be masked or unmasked. \033[1;34;40mRequired. \033[0;37;40m", metavar="HALFMAP1.MRC")
-parser.add_option("--halfmap2", dest="halfmap2", action="store", type="string", help="Second half map of 3D reconstruction. MRC format. Can be masked or unmasked. \033[1;34;40mRequired. \033[0;37;40m", metavar="HALFMAP2.MRC")
-parser.add_option("--fullmap", dest="fullmap", action="store", type="string", help="Full map of 3D reconstruction. MRC format. Can be masked or unmasked, can be sharpened or unsharpened. \033[1;34;40mRequired. \033[0;37;40m", metavar="FULLMAP.MRC")
-parser.add_option("--apix", dest="apix", action="store", type="float", default=1, help="Angstrom per pixel of 3D map. \033[1;34;40mRequired. \033[0;37;40m", metavar="FLOAT")
-parser.add_option("--mask", dest="mask", action="store", type="string", help="If given, it would be used to mask the half maps during 3DFSC generation and analysis.", metavar="MASK.MRC")
-parser.add_option("--ThreeDFSC", dest="ThreeDFSC", action="store", type="string", default="3DFSCOutput", help="Name of output 3DFSC map. No file extension required - it will automatically be given a .mrc extension. No paths please.", metavar="FILENAME")
-parser.add_option("--dthetaInDegrees", dest="dthetaInDegrees", action="store", type="float", default=20, help="Angle of cone to be used for 3D FSC sampling in degrees. Default is 20 degrees.", metavar="FLOAT")
-parser.add_option("--histogram", dest="histogram", action="store", type="string", default="histogram", help="Name of output histogram graph. No file extension required - it will automatically be given a .pdf extension. No paths please.", metavar="FILENAME")
-parser.add_option("--FSCCutoff", dest="FSCCutoff", action="store", type="float", default=0.143, help="FSC cutoff criterion. 0.143 is default.", metavar="FLOAT")
-parser.add_option("--ThresholdForSphericity", dest="ThresholdForSphericity", action="store", type="float", default=0.5, help="Threshold value for 3DFSC volume for calculating sphericity. 0.5 is default.", metavar="FLOAT")
-parser.add_option("--HighPassFilter", dest="HighPassFilter", action="store", type="float", default=150.0, help="High pass filter for thresholding in Angstrom. Prevents small dips in directional FSCs at low spatial frequency due to noise from messing up the thresholding step. Decrease if you see a huge wedge missing from your thresholded 3DFSC volume. 150 Angstroms is default.", metavar="FLOAT")
-parser.add_option("--Skip3DFSCGeneration", dest="Skip3DFSCGeneration", action="store", type="string", default="False", help="Allows for skipping of 3DFSC generation to directly run the analysis on a previously generated set of results.", metavar="True or False")
-(options, args) = parser.parse_args()
-
-print ("\n\033[1;34;40mWelcome to 3DFSC Program Suite Version %s \033[0;37;40m" % version)
-print ("Downloaded from https://github.com/nysbc/Anisotropy")
-print ("Anaconda 3 is required to run this program, and UCSF Chimera to visualize some outputs. Please install them if they are not present.")
-print ("Please be patient: Program usually finishes in minutes, but can take up to hours to run for extremely large box sizes.")
-print (options)
-print (args)
-
-def main():
-        execute(options)
 
 
 def execute(options):
@@ -155,7 +137,26 @@ def execute(options):
     print ("Results are in the folder Results_" + str(options.ThreeDFSC))
     print ("--- %s seconds ---" % (time.time() - start_time))
     print ("Please email pbaldwin@nysbc.org, ytan@nysbc.org and dlyumkis@salk.edu if there are any problems/suggestions. Thank you.\n")
-    
-if __name__ == '__main__':
-	main()
+    return
 
+
+if __name__ == '__main__':
+    parser = OptionParser(usage="usage: %prog [options]", version="%prog " + version)
+    parser.add_option("--halfmap1", dest="halfmap1", action="store", type="string", help="First half map of 3D reconstruction. MRC format. Can be masked or unmasked. \033[1;34;40mRequired. \033[0;37;40m", metavar="HALFMAP1.MRC")
+    parser.add_option("--halfmap2", dest="halfmap2", action="store", type="string", help="Second half map of 3D reconstruction. MRC format. Can be masked or unmasked. \033[1;34;40mRequired. \033[0;37;40m", metavar="HALFMAP2.MRC")
+    parser.add_option("--fullmap", dest="fullmap", action="store", type="string", help="Full map of 3D reconstruction. MRC format. Can be masked or unmasked, can be sharpened or unsharpened. \033[1;34;40mRequired. \033[0;37;40m", metavar="FULLMAP.MRC")
+    parser.add_option("--apix", dest="apix", action="store", type="float", default=1, help="Angstrom per pixel of 3D map. \033[1;34;40mRequired. \033[0;37;40m", metavar="FLOAT")
+    parser.add_option("--mask", dest="mask", action="store", type="string", help="If given, it would be used to mask the half maps during 3DFSC generation and analysis.", metavar="MASK.MRC")
+    parser.add_option("--ThreeDFSC", dest="ThreeDFSC", action="store", type="string", default="3DFSCOutput", help="Name of output 3DFSC map. No file extension required - it will automatically be given a .mrc extension. No paths please.", metavar="FILENAME")
+    parser.add_option("--dthetaInDegrees", dest="dthetaInDegrees", action="store", type="float", default=20, help="Angle of cone to be used for 3D FSC sampling in degrees. Default is 20 degrees.", metavar="FLOAT")
+    parser.add_option("--histogram", dest="histogram", action="store", type="string", default="histogram", help="Name of output histogram graph. No file extension required - it will automatically be given a .pdf extension. No paths please.", metavar="FILENAME")
+    parser.add_option("--FSCCutoff", dest="FSCCutoff", action="store", type="float", default=0.143, help="FSC cutoff criterion. 0.143 is default.", metavar="FLOAT")
+    parser.add_option("--ThresholdForSphericity", dest="ThresholdForSphericity", action="store", type="float", default=0.5, help="Threshold value for 3DFSC volume for calculating sphericity. 0.5 is default.", metavar="FLOAT")
+    parser.add_option("--HighPassFilter", dest="HighPassFilter", action="store", type="float", default=150.0, help="High pass filter for thresholding in Angstrom. Prevents small dips in directional FSCs at low spatial frequency due to noise from messing up the thresholding step. Decrease if you see a huge wedge missing from your thresholded 3DFSC volume. 150 Angstroms is default.", metavar="FLOAT")
+    parser.add_option("--Skip3DFSCGeneration", dest="Skip3DFSCGeneration", action="store", type="string", default="False", help="Allows for skipping of 3DFSC generation to directly run the analysis on a previously generated set of results.", metavar="True or False")
+
+    print('whatwhat')
+    (options, args) = parser.parse_args()
+    print('whatwhat')
+
+    execute(options)

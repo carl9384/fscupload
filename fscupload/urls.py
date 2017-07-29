@@ -20,12 +20,10 @@ from django.views.generic import RedirectView
 from django.contrib import admin
 
 # admin.autodiscover()
-from feedback.views import FeedbackView
 from upload import views as uploadviews
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^feedback/$', FeedbackView.as_view(), name="feedback"),
     url(r'^upload/', include('upload.urls')),
     url(r'^$', uploadviews.index),
     

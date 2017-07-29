@@ -18,7 +18,7 @@ class fscparams:
 
         if Fscjob.maskfile is not None:
             self.mask = Fscjob.maskfile.name
-        self.ThreeDFSC = 'testrun'
+        self.ThreeDFSC = Fscjob.jobname
         self.dthetaInDegrees = Fscjob.coneangle
         self.histogram = self.ThreeDFSC+"_histogram"
         self.FSCCutoff = Fscjob.fsccutoff

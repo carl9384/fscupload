@@ -16,7 +16,7 @@ class FscjobForm(forms.ModelForm):
 
     class Meta:
         model = Fscjob
-        exclude = ['maskfile','uniquefolder','password']
+        exclude = ['maskfile','uniquefolder','password','completefile']
 
 
 
@@ -26,7 +26,17 @@ class FscjobForm(forms.ModelForm):
         # filled in; not super complicated/effective but it works
         if self.cleaned_data['honeypot']:
             return False
+
+        job = Fscjob.objects.get(pk=job_id)
+
+        message = "Hi,\n \
+                  Your 3DFSC job %s is now being processed.\n \
+                  You will receive an email when it is complete with a download link.\n\n  \
+                  Thanks,\n \
+                  \n\n \
+                  YTZ, PRB, DL" %(job.jobname)
+
         send_upload_email_task.delay(
             #self.cleaned_data['emailaddress'], self.cleaned_data['message'])
-            self.cleaned_data['emailaddress'],'This is a test. Thanks for participating!',job_id)
+            self.cleaned_data['emailaddress'],message,job_id)
 

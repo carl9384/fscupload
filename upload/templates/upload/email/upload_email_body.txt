@@ -1,5 +1,20 @@
-{{message|linebreaks|safe}}
+{% comment %}{{message|linebreaks|safe}}
+{% endcomment %}
+
+Hi,
+
+Your "{{job.jobname | safe }}" 3DFSC job in now processing.
+
+You will receive an email shortly with instructions on how to retrieve your data.
 
 
-------
-Sent via feedback form
+Thanks,
+
+
+---------------------------------
+
+New York Structural Biology Center
+Simons Electron Microscopy Center
+National Resource for Automated Molecular Microscopy
+
+Salk Institute for Biological Studies

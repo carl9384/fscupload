@@ -20,7 +20,7 @@ from django.core.urlresolvers import reverse
 
 from upload.models import Fscjob,generate_uniquestring
 from upload.forms import FscjobForm
-from upload.tasks import process_3DFSC
+from upload.tasks import process_3DFSC_task
 from upload import views as uploadviews
 from django.utils import timezone
 from hashlib import sha3_512
@@ -47,6 +47,7 @@ def list(request):
                                 halfmap2file = request.FILES['halfmap2file'],
                                 fullmapfile  = request.FILES['fullmapfile'],
                                 maskfile = request.FILES['maskfile'],
+                                jobname = request.POST['jobname'],
                                 emailaddress = request.POST['emailaddress'],
                                 apix = request.POST['apix'],
                                 coneangle = request.POST['coneangle'],
@@ -54,6 +55,7 @@ def list(request):
                                 sphericitythresh = request.POST['sphericitythresh'],
                                 highpassfilter = request.POST['highpassfilter']
                                 )
+
                 newdoc.uniquefolder = generate_uniquestring()
         
                 uniquefolder = newdoc.uniquefolder+"/"
@@ -65,13 +67,14 @@ def list(request):
                 print('newdoc is',newdoc.halfmap1file.name)
                 newdoc.save()
                 form.send_email(newdoc.id)
-                process_3DFSC(newdoc.id)
+                process_3DFSC_task.delay(newdoc.id)
             else:
                 print('form IS valid')
                 newdoc = Fscjob(halfmap1file = request.FILES['halfmap1file'],
                                 halfmap2file = request.FILES['halfmap2file'],
                                 fullmapfile  = request.FILES['fullmapfile'],
                                 emailaddress = request.POST['emailaddress'],
+                                jobname = request.POST['jobname'],
                                 apix = request.POST['apix'],
                                 coneangle = request.POST['coneangle'],
                                 fsccutoff = request.POST['fsccutoff'],
@@ -86,7 +89,7 @@ def list(request):
                 print('newdoc is',newdoc.halfmap1file.name)
                 newdoc.save()
                 form.send_email(newdoc.id)
-                process_3DFSC(newdoc.id)
+                process_3DFSC_task.delay(newdoc.id)
         else:
 
             #newdoc.save()
