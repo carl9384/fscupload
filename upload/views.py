@@ -83,11 +83,10 @@ def list(request):
 
             #newdoc.save()
             form = FscjobForm()
+            
             # Redirect to the document list after POST
             return HttpResponseRedirect(reverse(uploadviews.index))
-
         
-        check_delete_folder_path(temp_path)
         return HttpResponseRedirect(reverse(uploadviews.uploadcomplete))
     else:
         form = FscjobForm() # A empty, unbound form
@@ -98,11 +97,6 @@ def list(request):
     # Render list page with the documents and the form
 
     return render(request,'upload/list.html',{'documents': documents,'form':form})
-#    return render_to_response(
-#        'upload/list.html',
-#        {'documents': documents, 'form': form},
-#        context_instance=RequestContext(request)
-#    )
 
 def index(request):
     return HttpResponseRedirect(reverse(uploadviews.list))
@@ -110,9 +104,3 @@ def index(request):
 def uploadcomplete(request):
     return render(request,'upload/uploadcomplete.html',{})
 
-
-def check_delete_folder_path(temp_path):
-
-    if os.path.exists(temp_path):
-        if os.listdir(temp_path) == []: 
-            os.rmdir(temp_path)
