@@ -10,6 +10,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
+import os
 from upload.models import Fscjob,generate_uniquestring
 from upload.forms import FscjobForm
 from upload.tasks import process_3DFSC_task
@@ -75,14 +76,18 @@ def list(request):
                 newdoc.save()
                 form.send_email(newdoc.id)
                 process_3DFSC_task.delay(newdoc.id)
+            
+            temp_path = os.path.join(settings.PROJECT_ROOT,newdoc.uniquefolder)
+
         else:
 
             #newdoc.save()
-
+            form = FscjobForm()
             # Redirect to the document list after POST
             return HttpResponseRedirect(reverse(uploadviews.index))
 
         
+        check_delete_folder_path(temp_path)
         return HttpResponseRedirect(reverse(uploadviews.uploadcomplete))
     else:
         form = FscjobForm() # A empty, unbound form
@@ -104,3 +109,10 @@ def index(request):
 
 def uploadcomplete(request):
     return render(request,'upload/uploadcomplete.html',{})
+
+
+def check_delete_folder_path(temp_path):
+
+    if os.path.exists(temp_path):
+        if os.listdir(temp_path) == []: 
+            os.rmdir(temp_path)
