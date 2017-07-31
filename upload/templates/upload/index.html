@@ -1,4 +1,25 @@
-<br /><br />
-<br />
-<br />
-<div class="subtitle_2nd" id="Template">Template: fscupload/upload/templates/upload/list.html</div>
+{% extends 'upload/base.html' %}
+
+{% load bootstrap3 %}
+
+
+{% block title %}
+Salk - NYSBC Remote 3DFSC Processing
+{% endblock %}
+
+{% block content %}
+
+        <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4">
+
+<div class="panel panel-default">
+ <div class="panel-body">
+
+This is the Remote 3DFSC landing page.
+ </div !--panel-body-->
+</div !--panel-default-->
+
+        </div !--col-lg-4-->
+        </div !--row-->
+
+{% endblock %}

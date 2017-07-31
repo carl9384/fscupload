@@ -99,7 +99,7 @@ def list(request):
     return render(request,'upload/list.html',{'documents': documents,'form':form})
 
 def index(request):
-    return HttpResponseRedirect(reverse(uploadviews.list))
+    return render(request,'upload/index.html',{})
 
 def uploadcomplete(request):
     return render(request,'upload/uploadcomplete.html',{})
