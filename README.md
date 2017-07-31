@@ -12,6 +12,7 @@ This is a Django app for uploading cryo-em maps to a remote server and processin
 
 ## Thanks
 
+Add a note about citations
 
 These tutorial links helped:
 http://www.bogotobogo.com/python/Django/Python_Django_Image_Files_Uploading_Example.php
