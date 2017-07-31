@@ -8,15 +8,16 @@ from upload.tasks import send_upload_email_task
 
 class FscjobForm(forms.ModelForm):
 
-    maskfile = forms.FileField(required=False)
+ #   maskfile = forms.FileField(required=False)
     honeypot = forms.CharField(widget=forms.HiddenInput(), required=False)
 #    uniquefolder = forms.CharField(widget=forms.HiddenInput(),required=True)
 #    password = forms.CharField(widget=forms.HiddenInput(),required=True)
 
+
     class Meta:
         model = Fscjob
-        exclude = ['maskfile','uniquefolder','password','completefile']
-
+        exclude = ['uniquefolder','password','completefile']
+        widgets = { 'apix': forms.TextInput({'size': 10})}
 
 
     def send_email(self,job_id):

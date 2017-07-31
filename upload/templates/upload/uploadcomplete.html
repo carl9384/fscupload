@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html>
-        <head>
-                <meta charset="utf-8">
-                <title>SALK - SEMC Remote 3DFSC</title>
-        </head>
+{% extends 'upload/base.html' %}
 
-        <body>
+{% load bootstrap3 %}
 
-		<p>Your data for 3DFSC processing was uploaded and submitted succesfully.</p>
-		<p>When your job is finished, you will receive an email with instructions on how to retrieve your data.</p>
-		<p>Please make sure your spam filters allow messages from remote.3dfsc@gmail.com.</p>
-		<p>For addition assistance please contact remote.3dfsc@gmail.com</p>
-        </body>
+{% block title %}
+Salk - NYSBC Remote 3DFSC Processing
+{% endblock %}
 
-</html>
+{% block content %}
+
+                <p>Your data for 3DFSC processing was uploaded and submitted succesfully.</p>
+                <p>When your job is finished, you will receive an email with instructions on how to retrieve your data.</p>
+                <p>Please make sure your spam filters allow messages from remote.3dfsc@gmail.com.</p>
+                <p>For addition assistance please contact remote.3dfsc@gmail.com</p>
+
+{% endblock %}
+
+
+

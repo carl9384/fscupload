@@ -21,22 +21,22 @@ def generate_uniquestring(numchars):
 
 class Fscjob(models.Model):
 
-    emailaddress = models.EmailField()
-    jobname = models.CharField(max_length=15,default="3dfsc_run")
-    halfmap1file = models.FileField()
-    halfmap2file = models.FileField()
-    fullmapfile  = models.FileField()
-    apix = models.FloatField(default=1.1)
-    maskfile = models.FileField()
-    coneangle = models.FloatField(default=20.0)
-    fsccutoff = models.FloatField(default=0.143)
-    sphericitythresh = models.FloatField(default=0.5)
-    highpassfilter = models.FloatField(default=150.0)
-    uniquefolder = models.CharField(max_length=20,default=generate_uniquestring(20))
-    password = models.CharField(max_length=20,default=generate_uniquestring(10))
-    created_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
-    completefile = models.FileField()
+    emailaddress = models.EmailField(verbose_name="Email Address")
+    jobname = models.CharField(max_length=15,default="3dfsc_run",verbose_name="Job Name")
+    halfmap1file = models.FileField(verbose_name="Half-map 1 file")
+    halfmap2file = models.FileField(verbose_name="Half-map 2 file")
+    fullmapfile  = models.FileField(verbose_name="Full map file")
+    apix = models.FloatField(default=1.1,verbose_name="Pixel Size (Angstrom)")
+    maskfile = models.FileField(verbose_name="Mask file",blank=True)
+    coneangle = models.FloatField(default=20.0,verbose_name="Cone angle")
+    fsccutoff = models.FloatField(default=0.143,verbose_name="FSC Cutoff")
+    sphericitythresh = models.FloatField(default=0.5,verbose_name="Sphericity Threshold")
+    highpassfilter = models.FloatField(default=150.0,verbose_name="High-pass filter (Angstrom)")
+    uniquefolder = models.CharField(max_length=20,default=generate_uniquestring(20),verbose_name="Unique folder name")
+    password = models.CharField(max_length=20,default=generate_uniquestring(10),verbose_name="Password")
+    created_date = models.DateTimeField(auto_now_add=True,verbose_name="Date created")
+    modified_date = models.DateTimeField(auto_now=True,verbose_name="Date last modified")
+    completefile = models.FileField(verbose_name="Results file name")
 
 
 
