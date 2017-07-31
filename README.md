@@ -1,5 +1,7 @@
 ## Remote 3DFSC Processing
+
 This is a Django app for uploading cryo-em maps to a remote server and processing YZT, DL, and PRB's 3DFSC program.
+
 ======
 
 ## Installation
@@ -12,9 +14,6 @@ This is a Django app for uploading cryo-em maps to a remote server and processin
 ======
 ## Thanks
 
-I made some changes to the directory structure of ThreeDFSC so that it can be run programatically, rather than just through the command line.
-
-
-These link helped:
+These tutorial links helped:
 http://www.bogotobogo.com/python/Django/Python_Django_Image_Files_Uploading_Example.php
 https://realpython.com/blog/python/asynchronous-tasks-with-django-and-celery/
