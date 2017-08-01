@@ -1,6 +1,6 @@
 from django.conf import settings
 import os
-from ThreeDFSC.ThreeDFSC_Start import execute
+from Anisotropy.ThreeDFSC.ThreeDFSC_Start import execute
 from upload.compress import compress_files
 from upload.fscparams import fscparams
 from upload.emails import send_processing_complete_email
