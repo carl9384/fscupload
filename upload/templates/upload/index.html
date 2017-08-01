@@ -2,20 +2,25 @@
 
 {% load bootstrap3 %}
 
-
-{% block title %}
-Salk - NYSBC Remote 3DFSC Processing
-{% endblock %}
-
 {% block content %}
 
         <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="col-xs-12 col-sm-6 col-md-6">
 
 <div class="panel panel-default">
  <div class="panel-body">
 
-This is the Remote 3DFSC landing page.
+<h4>This is an application for remotely processing the 3D Fourier shell correlation of cryoEM maps.</h4>
+<h4>Instructions:</h4>
+<p>1) Navigate to the processing form via the "Submit job" link.</p>
+
+<p>2) Enter your email address and other required parameters in the form.</p>
+</p>You must upload a job name, two half maps (.mrc format), a full map (also .mrc format), and an appropriate pixel size. All other parameters are optional. Click "Submit job".</p>
+
+<p>3) You should receive an email to confirm your processing job. If you do not receive an email, please check your spam folders.</p>
+<p>4) When your job is complete, you will receive another email with a link to download the compressed results. Also included in the email is a password to decompress the .zip file.</p>
+
+
  </div !--panel-body-->
 </div !--panel-default-->
 
