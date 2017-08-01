@@ -1,0 +1,10 @@
+db.sqlite3
+dump.rdb
+fscupload/__pycache__/*
+fscupload/settings.py
+fscupload/settings.py.template
+media/*
+static/admin/*
+static/upload/*
+upload/__pycache__/*
+upload/migrations/__pycache__/*
