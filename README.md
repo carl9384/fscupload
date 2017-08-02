@@ -50,23 +50,23 @@ Set SITE_URL to the domain of the site you plan to use:
 SITE_URL = 'http://192.168.4.147:8000'
 
 ### 2) Migrate database
-cd ~/fscupload 
-./manage.py makemigrations 
-./manage.py migrate 
+cd ~/fscupload  
+./manage.py makemigrations  
+./manage.py migrate  
 
 ### 3) Start redis
-screen;redis-server (detach with ctrl+a, ctrl+d)
+screen  
+redis-server (detach with ctrl+a, ctrl+d)  
 
 ### 4) Start celery worker task
-screen 
-cd ~/fscupload 
-celery -A fscupload worker -l info 
-(detach with ctrl+a, ctrl+d) 
+screen  
+cd ~/fscupload  
+celery -A fscupload worker -l info  
+(detach with ctrl+a, ctrl+d)  
 
 ### 5) Launch Django test server
-
-cd ~/fscupload 
-./manage.py runserver 0.0.0.0:8000 
+cd ~/fscupload  
+./manage.py runserver 0.0.0.0:8000  
 
 ### 6) Use it
 You should now be able to navigate to http://192.168.4.147:8000 
