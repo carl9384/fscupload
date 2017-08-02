@@ -38,6 +38,7 @@ DEBUG is set to TRUE for the development server. This should be set to FALSE for
 
 Set EMAIL_ variables for your configuration. For SMTP, ammend EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD for your email account.
 e.g.
+
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'fscuser@gmail.com'
 EMAIL_HOST_PASSWORD = 'fscpassword'
