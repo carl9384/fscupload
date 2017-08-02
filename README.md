@@ -7,11 +7,11 @@ This is a Django app for uploading cryo-em maps to a remote server and processin
 Note: This development server installation was tested in Docker with Ubuntu 16.04.2 LTS.
 
 ### 1) OS Dependencies
-apt-get update 
+apt-get update  
 apt-get install -y python3-dev zlib1g-dev git wget bzip2 gcc vim redis-server screen 
 
 ### 2) Install Anaconda
-clone Linux Anaconda3 Installer: 
+clone Linux Anaconda3 Installer:  
 wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh
 
 run the installer (adding anaconda path to .bashrc is recommended): 
@@ -27,21 +27,21 @@ conda env create -f ~/fscupload/environment.yml
 ## Getting Started
 
 ### 1) Configure settings.py
-cd ~/fscupload 
+cd ~/fscupload  
 cp settings.py.template settings.py
 
-Change SECRET_KEY to a random 50 character string (this should be kept secret for security reasons) 
+Change SECRET_KEY to a random 50 character string (this should be kept secret for security reasons)  
 (You can use this site: http://www.miniwebtool.com/django-secret-key-generator/) 
 
 DEBUG is set to TRUE for the development server. This should be set to FALSE for production (it will cause a memory leak, eventually)
 
-Set EMAIL_ variables for your configuration. 
-For SMTP, ammend EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD for your email account.
-e.g.
+Set EMAIL_ variables for your configuration.  
+For SMTP, ammend EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD for your email account.  
+e.g.  
 
-EMAIL_HOST = 'smtp.gmail.com' 
-EMAIL_HOST_USER = 'fscuser@gmail.com' 
-EMAIL_HOST_PASSWORD = 'fscpassword' 
+EMAIL_HOST = 'smtp.gmail.com'  
+EMAIL_HOST_USER = 'fscuser@gmail.com'  
+EMAIL_HOST_PASSWORD = 'fscpassword'  
 
 Set PROJECT_ROOT to the path where ./manage.py is located, e.g. /home/cnegro/fscupload/manage.py 
 PROJECT_ROOT = '/home/cnegro/fscupload/' 
