@@ -18,7 +18,7 @@ run the installer (adding anaconda path to .bashrc is recommended):
 bash Anaconda3-4.4.0-Linux-x86_64.sh
 
 ### 3) Clone Repository
-(Note the --recursive flag) 
+(Note the --recursive flag)  
 git clone --recursive https://github.com/carl9384/3dfsc_upload fscupload
 
 ### 4) Create virtual environment
