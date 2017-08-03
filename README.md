@@ -1,7 +1,7 @@
 ## Remote 3DFSC Processing
 
 This is a Django app for uploading cryo-em maps to a remote server and processing YZT, DL, and PRB's 3DFSC program.
-
+See https://www.ncbi.nlm.nih.gov/pubmed/28671674 for the original paper.
 ## Installation
 
 Note: This development server installation was tested in Docker with Ubuntu 16.04.2 LTS.
