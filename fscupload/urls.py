@@ -19,17 +19,31 @@ from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 import registration.backends
+from registration.backends.hmac.views import RegistrationView
+from fscupload.forms import CustomUserForm
+
+from decorator_include import decorator_include
 
 # admin.autodiscover()
 from upload import views as uploadviews
 
 urlpatterns = [
+    url(r'^accounts/register/$',
+            RegistrationView.as_view(
+            form_class=CustomUserForm
+             ),
+            name='registration_register',
+             ),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$',auth_views.login,name='login'),
     url(r'^logout/$', auth_views.logout_then_login,name='logout'),
-    url(r'^upload/', include('upload.urls')),
+    url(r'^upload/', decorator_include(login_required,'upload.urls')),
     url(r'^$', uploadviews.index),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
