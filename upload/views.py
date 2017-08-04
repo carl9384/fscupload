@@ -40,7 +40,8 @@ def submit(request):
                                 fsccutoff = request.POST['fsccutoff'],
                                 sphericitythresh = request.POST['sphericitythresh'],
                                 highpassfilter = request.POST['highpassfilter'],
-                                user = request.user
+                                user = request.user,
+                                password = generate_uniquestring()
                                 )
 
                 newdoc.uniquefolder = generate_uniquestring()
@@ -66,7 +67,8 @@ def submit(request):
                                 fsccutoff = request.POST['fsccutoff'],
                                 sphericitythresh = request.POST['sphericitythresh'],
                                 highpassfilter = request.POST['highpassfilter'],
-                                user = request.user
+                                user = request.user,
+                                password = generate_uniquestring()
                                 ) 
                 newdoc.uniquefolder = generate_uniquestring()
                 uniquefolder = newdoc.uniquefolder+"/"
@@ -86,9 +88,9 @@ def submit(request):
             form = FscjobForm()
             
             # Redirect to the after POST
-            return HttpResponseRedirect(reverse(uploadviews.index))
+            return HttpResponseRedirect(reverse('upload:index'))
         
-        return HttpResponseRedirect(reverse(uploadviews.uploadcomplete))
+        return HttpResponseRedirect(reverse('upload:uploadcomplete'))
     else:
         form = FscjobForm() # A empty, unbound form
 
@@ -118,5 +120,4 @@ class fscjobListView(ListView):
         context['SITE_URL'] = settings.SITE_URL
         context['MEDIA_URL'] = settings.MEDIA_URL
         context['MEDIA_ROOT'] = settings.MEDIA_ROOT
-        print("Context is",context)
         return context

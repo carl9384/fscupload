@@ -11,7 +11,7 @@ class FscjobForm(forms.ModelForm):
 
     class Meta:
         model = Fscjob
-        exclude = ['uniquefolder','password','completefile']
+        exclude = ['uniquefolder','password','completefile','user']
         widgets = { 'apix': forms.TextInput({'size': 10})}
 
 
