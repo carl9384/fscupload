@@ -18,11 +18,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from django.contrib import admin
+import registration.backends
 
 # admin.autodiscover()
 from upload import views as uploadviews
 
 urlpatterns = [
+    url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^upload/', include('upload.urls')),
     url(r'^$', uploadviews.index),

@@ -57,7 +57,7 @@ ROOT_URLCONF = 'fscupload.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['fscupload/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -150,3 +150,7 @@ MEDIA_URL = '/media/'
 
 # Change the SITE_URL to match the domain and port (if applicable) in use. This is necessary to get the download links working properly.
 SITE_URL = 'http://192.168.4.147:8000'
+
+# django-registration app HMAC settings
+ACCOUNT_ACTIVATION_DAYS = 7 # After users register, they will be able to use the activation link sent to their email for one week.
+

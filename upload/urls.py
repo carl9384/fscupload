@@ -11,8 +11,3 @@ urlpatterns =[
     url(r'^uploadcomplete/$',uploadviews.uploadcomplete, name='uploadcomplete'),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-
-    #('upload.views',
-    #url(r'^$', 'list', name='list'),
-    #    url(r'^list/$', 'list', name='list'),
-    #    )
