@@ -1,1 +1,14 @@
-This is the registration form.
+{% extends 'fscupload/base.html' %}
+
+{% load bootstrap3 %}
+{% block content %}
+        <!-- Registration form. -->
+        <form action="{% url "registration_register" %}" method="post">
+                {% csrf_token %}
+
+        <p>{{ form.non_field_errors }}</p>
+	   {{ form.as_p }}	
+
+	{% buttons submit="Submit Registration" reset="Reset Form" %}{% endbuttons %}
+	</form>
+{% endblock %}
