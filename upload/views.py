@@ -23,7 +23,7 @@ def generate_uniquestring():
     hasher.update(str(timezone.now()).encode('utf-8'))
     return hasher.hexdigest()[:20]
 
-def list(request):
+def submit(request):
 
     if request.method == 'POST':
 
@@ -84,7 +84,7 @@ def list(request):
             #newdoc.save()
             form = FscjobForm()
             
-            # Redirect to the document list after POST
+            # Redirect to the after POST
             return HttpResponseRedirect(reverse(uploadviews.index))
         
         return HttpResponseRedirect(reverse(uploadviews.uploadcomplete))
@@ -96,7 +96,7 @@ def list(request):
 
     # Render list page with the documents and the form
 
-    return render(request,'upload/list.html',{'documents': documents,'form':form})
+    return render(request,'upload/submit.html',{'documents': documents,'form':form})
 
 def index(request):
     return render(request,'upload/index.html',{})

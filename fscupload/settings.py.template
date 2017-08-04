@@ -153,4 +153,4 @@ SITE_URL = 'http://192.168.4.147:8000'
 
 # django-registration app HMAC settings
 ACCOUNT_ACTIVATION_DAYS = 7 # After users register, they will be able to use the activation link sent to their email for one week.
-LOGIN_REDIRECT_URL = '/upload/list'
+LOGIN_REDIRECT_URL = '/upload/submit'

@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 urlpatterns =[
 
     url(r'^$', uploadviews.index, name='index'),
-    url(r'^list/$', login_required(uploadviews.list), name='list'),
+    url(r'^submit/$', login_required(uploadviews.submit), name='submit'),
     url(r'^uploadcomplete/$',login_required(uploadviews.uploadcomplete), name='uploadcomplete'),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
