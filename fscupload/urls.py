@@ -37,6 +37,8 @@ urlpatterns = [
             name='registration_register',
              ),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
+    url(r'^accounts/password/reset/$', auth_views.password_reset, name='password_reset'),
+    url(r'^accounts/password/reset/complete$', auth_views.password_reset_complete, name='password_reset_complete'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$',auth_views.login,name='login'),
     url(r'^logout/$', auth_views.logout_then_login,name='logout'),
