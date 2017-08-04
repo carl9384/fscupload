@@ -42,8 +42,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$',auth_views.login,name='login'),
     url(r'^logout/$', auth_views.logout_then_login,name='logout'),
-    #url(r'^upload/', decorator_include(login_required,'upload.urls')),
-    url(r'^upload/', include('upload.urls')),
+    url(r'^upload/', include('upload.urls', namespace='upload')),
     url(r'^$', uploadviews.index,name='index'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,19 @@
+{% extends 'fscupload/base.html' %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+
+{% if fscjobs %}
+{% for job in fscjobs %}
+	{% if job.completefile %}
+	<p>{{job.jobname}} -- {{job.emailaddress}} -- <a href="{{ SITE_URL }}{{job.completefile.url}}">{{job.completefile}}</a></p>
+	{% else %}
+	<p>{{job.jobname}} -- {{job.emailaddress}} -- Job still being processed.</p>
+	{% endif %}	
+{% endfor %}
+{% else %}
+<p> You have not processed any jobs. Click <a href="{% url 'upload:submit' %}">here</a> to submit a 3DFSC job.</p>
+{% endif %}
+{% endblock %}
+

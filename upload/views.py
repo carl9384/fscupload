@@ -2,21 +2,20 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.conf import settings
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import render,render_to_response
+from django.template import RequestContext
+from django.utils import timezone
+from django.views.generic.list import ListView
 
+from hashlib import sha3_512
 import os
 from upload.models import Fscjob,generate_uniquestring
 from upload.forms import FscjobForm
 from upload.tasks import process_3DFSC_task
-from upload import views as uploadviews
-from django.utils import timezone
-from hashlib import sha3_512
+
 
 def generate_uniquestring():
     hasher = sha3_512()
@@ -40,7 +39,8 @@ def submit(request):
                                 coneangle = request.POST['coneangle'],
                                 fsccutoff = request.POST['fsccutoff'],
                                 sphericitythresh = request.POST['sphericitythresh'],
-                                highpassfilter = request.POST['highpassfilter']
+                                highpassfilter = request.POST['highpassfilter'],
+                                user = request.user
                                 )
 
                 newdoc.uniquefolder = generate_uniquestring()
@@ -65,7 +65,8 @@ def submit(request):
                                 coneangle = request.POST['coneangle'],
                                 fsccutoff = request.POST['fsccutoff'],
                                 sphericitythresh = request.POST['sphericitythresh'],
-                                highpassfilter = request.POST['highpassfilter']
+                                highpassfilter = request.POST['highpassfilter'],
+                                user = request.user
                                 ) 
                 newdoc.uniquefolder = generate_uniquestring()
                 uniquefolder = newdoc.uniquefolder+"/"
@@ -104,3 +105,18 @@ def index(request):
 def uploadcomplete(request):
     return render(request,'upload/uploadcomplete.html',{})
 
+
+class fscjobListView(ListView):
+
+    model = Fscjob
+    context_object_name = 'fscjobs'
+    def get_queryset(self):
+        return Fscjob.objects.filter(user=self.request.user)
+    def get_context_data(self, **kwargs):
+        context = super(fscjobListView, self).get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        context['SITE_URL'] = settings.SITE_URL
+        context['MEDIA_URL'] = settings.MEDIA_URL
+        context['MEDIA_ROOT'] = settings.MEDIA_ROOT
+        print("Context is",context)
+        return context

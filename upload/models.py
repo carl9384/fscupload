@@ -1,8 +1,9 @@
-from django.db import models
 from django import conf
+from django.conf import settings
+from django.contrib.auth.models import User
+from django.db import models
 from django.utils import timezone
 from hashlib import sha3_512
-from django.conf import settings
 
 # Create your models here.
 
@@ -37,6 +38,7 @@ class Fscjob(models.Model):
     created_date = models.DateTimeField(auto_now_add=True,verbose_name="Date created")
     modified_date = models.DateTimeField(auto_now=True,verbose_name="Date last modified")
     completefile = models.FileField(verbose_name="Results file name")
+    user = models.ForeignKey(User)
 
 
 
