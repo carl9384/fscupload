@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from decorator_include import decorator_include
 from django.conf.urls import include, url
 from django.conf import settings
 from django.conf.urls.static import static
@@ -20,11 +21,11 @@ from django.views.generic import RedirectView
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
 import registration.backends
 from registration.backends.hmac.views import RegistrationView
 from fscupload.forms import CustomUserForm
 
-from decorator_include import decorator_include
 
 # admin.autodiscover()
 from upload import views as uploadviews
@@ -40,8 +41,9 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$',auth_views.login,name='login'),
     url(r'^logout/$', auth_views.logout_then_login,name='logout'),
-    url(r'^upload/', decorator_include(login_required,'upload.urls')),
-    url(r'^$', uploadviews.index),
+    #url(r'^upload/', decorator_include(login_required,'upload.urls')),
+    url(r'^upload/', include('upload.urls')),
+    url(r'^$', uploadviews.index,name='index'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

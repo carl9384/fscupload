@@ -60,7 +60,6 @@ dependencies:
   - celery==3.1.18
   - django==1.11.3
   - django-bootstrap3==9.0.0
-  - django-decorator-include==1.3
   - django-registration==2.2
   - kombu==3.0.37
   - mrcfile==1.0.0

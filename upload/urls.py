@@ -3,11 +3,12 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from upload import views as uploadviews
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 
 urlpatterns =[
 
     url(r'^$', uploadviews.index, name='index'),
-    url(r'^list/$', uploadviews.list, name='list'),
-    url(r'^uploadcomplete/$',uploadviews.uploadcomplete, name='uploadcomplete'),
+    url(r'^list/$', login_required(uploadviews.list), name='list'),
+    url(r'^uploadcomplete/$',login_required(uploadviews.uploadcomplete), name='uploadcomplete'),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
