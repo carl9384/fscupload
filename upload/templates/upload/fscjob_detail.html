@@ -5,10 +5,40 @@
 {% block title %} Results {% endblock %}
 
 {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+	<br><br>
+        <p>Job name: {{fscjob.jobname}}</p>
+	<p>Compressed Results: <a href="{{ SITE_URL }}{{fscjob.completefile.url}}">{{fscjob.jobname}}.zip</a></p>
+	<p>Password for results .zip: {{fscjob.password}}</p>
+	<p>Halfmap1: {{fscjob.halfmap1file.name}}</p>
+	<p>Halfmap2: {{fscjob.halfmap2file.name}}</p>
+	<p>Fullmap:  {{fscjob.fullmapfile.name}}</p>
+	{% if fscjob.maskfile %}
+        <p>Mask: {{fscjob.maskfile.name}}</p>
+	{% else %}
+	<p>Mask: (no mask applied)</p>
+	{% endif %}
+	<p>Pixel Size: {{fscjob.apix}}</p>
+	<p>Cone Angle: {{fscjob.coneangle}}</p>
+	<p>FSC Cutoff: {{fscjob.fsccutoff}}</p>
+	<p>Sphericity Threshold: {{fscjob.sphericitythresh}}</p>
+	<p>High Pass Filter(A): {{fscjob.highpassfilter}}</p>
+	
+        </div !--col-lg-3-->
+	<div class="col-lg-6">
+            <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/{{fscjob.jobname}}_histogram.png" alt="FSC's">
+        </div !--col-lg-offset-3 col-lg-6 col-lg-offset-3-->
+    </div !--row-->
+    <div class="row">
+        <div class="col-lg-6">	
+            <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/Plots{{fscjob.jobname}}.jpg" alt="FSC's">
+	</div !--col-lg-6-->
+	<div class="col-lg-6">
+            <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/FTPlot{{fscjob.jobname}}.jpg" alt="FSC's">
+	</div !--col-lg-6-->
+    </div !--row-->
 
-<!--img src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/Plots{{fscjob.jobname}}.jpg" alt="FSC's" style="width:512px;height:512px;"-->
-<img src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/Plots{{fscjob.jobname}}.jpg" alt="FSC's">
-<img src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/FTPlot{{fscjob.jobname}}.jpg" alt="FSC's">
-<img src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/{{fscjob.jobname}}_histogram.png" alt="FSC's">
-
+</div !--container-->
 {% endblock %}
