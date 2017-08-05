@@ -13,7 +13,6 @@ class fscparams:
         self.halfmap2 = os.path.join(settings.MEDIA_ROOT,Fscjob.halfmap2file.name)
         self.fullmap =  os.path.join(settings.MEDIA_ROOT,Fscjob.fullmapfile.name)
         
-        print("full map path is ",self.fullmap)
         self.apix = float(Fscjob.apix)
 
         if Fscjob.maskfile is not None:
@@ -26,8 +25,6 @@ class fscparams:
         self.HighPassFilter = Fscjob.highpassfilter
         self.Skip3DFSCGeneration = "False"
 
-        from pprint import pprint
-        pprint(vars(self))
 
 
 
