@@ -9,7 +9,7 @@ from django.shortcuts import render,render_to_response
 from django.template import RequestContext
 from django.utils import timezone
 from django.views.generic.list import ListView
-
+from django.views.generic.detail import DetailView
 from hashlib import sha3_512
 import os
 from upload.models import Fscjob,generate_uniquestring
@@ -113,11 +113,23 @@ class fscjobListView(ListView):
     model = Fscjob
     context_object_name = 'fscjobs'
     def get_queryset(self):
-        return Fscjob.objects.filter(user=self.request.user)
+        return Fscjob.objects.filter(user=self.request.user).order_by('-created_date')
     def get_context_data(self, **kwargs):
         context = super(fscjobListView, self).get_context_data(**kwargs)
         context['now'] = timezone.now()
         context['SITE_URL'] = settings.SITE_URL
+        return context
+
+class fscjobDetailView(DetailView):
+
+    model = Fscjob
+    context_object_name = 'fscjob'
+    def get_queryset(self):
+        return Fscjob.objects.filter(user=self.request.user).order_by('-created_date')
+    def get_context_data(self, **kwargs):
+        context = super(fscjobDetailView, self).get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        context['SITE_URL'] = settings.SITE_URL
         context['MEDIA_URL'] = settings.MEDIA_URL
-        context['MEDIA_ROOT'] = settings.MEDIA_ROOT
+        print("fscjobDetailView context is",context)
         return context

@@ -1,0 +1,14 @@
+{% extends 'fscupload/base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %} Results {% endblock %}
+
+{% block content %}
+
+<!--img src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/Plots{{fscjob.jobname}}.jpg" alt="FSC's" style="width:512px;height:512px;"-->
+<img src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/Plots{{fscjob.jobname}}.jpg" alt="FSC's">
+<img src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/FTPlot{{fscjob.jobname}}.jpg" alt="FSC's">
+<img src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/{{fscjob.jobname}}_histogram.png" alt="FSC's">
+
+{% endblock %}
