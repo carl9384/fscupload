@@ -1,14 +1,16 @@
 {% extends 'fscupload/base.html' %}
 
 {% load bootstrap3 %}
+{% block title %}Register{% endblock %}
 {% block content %}
+
+  <div id="content-container" class="container p-none">
+    <div class="lgn-container col-lg-8">
         <!-- Registration form. -->
-        <form action="{% url "registration_register" %}" method="post">
-                {% csrf_token %}
-
+	<form id="registration-form" method="post" action="{% url 'registration_register' %}">
+        {% csrf_token %} 
         <p>{{ form.non_field_errors }}</p>
-	   {{ form.as_p }}	
-
+        {{ form.as_p }}
 	{% buttons submit="Submit Registration" reset="Reset Form" %}{% endbuttons %}
 	</form>
 {% endblock %}
