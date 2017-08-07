@@ -7,3 +7,4 @@ static/admin/*
 static/upload/*
 upload/__pycache__/*
 upload/migrations/__pycache__/*
+__pycache__/*
