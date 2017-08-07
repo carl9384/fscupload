@@ -10,6 +10,7 @@
 	<form id="registration-form" method="post" action="{% url 'registration_register' %}">
         {% csrf_token %} 
         <p>{{ form.non_field_errors }}</p>
+        
         {{ form.as_p }}
 	{% buttons submit="Submit Registration" reset="Reset Form" %}{% endbuttons %}
 	</form>
