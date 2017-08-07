@@ -15,6 +15,7 @@ import os
 from upload.models import Fscjob,generate_uniquestring
 from upload.forms import FscjobForm
 from upload.tasks import process_3DFSC_task
+from upload.tasks import send_upload_email_task
 
 
 def generate_uniquestring():
@@ -54,7 +55,8 @@ def submit(request):
                 
                 print('newdoc is',newdoc.halfmap1file.name)
                 newdoc.save()
-                form.send_email(newdoc.id)
+                send_upload_email_task.delay(newdoc.id)
+                #form.send_email(newdoc.id)
                 process_3DFSC_task.delay(newdoc.id)
             else:
                 newdoc = Fscjob(halfmap1file = request.FILES['halfmap1file'],
@@ -77,7 +79,8 @@ def submit(request):
                 newdoc.fullmapfile.name  = uniquefolder+newdoc.fullmapfile.name
                 print('newdoc is',newdoc.halfmap1file.name)
                 newdoc.save()
-                form.send_email(newdoc.id)
+                send_upload_email_task.delay(newdoc.id)
+                #form.send_email(newdoc.id)
                 process_3DFSC_task.delay(newdoc.id)
             
             temp_path = os.path.join(settings.PROJECT_ROOT,newdoc.uniquefolder)

@@ -15,7 +15,7 @@ class FscjobForm(forms.ModelForm):
         widgets = { 'apix': forms.TextInput({'size': 10})}
 
 
-    def send_email(self,job_id):
+    def send_email2(self,job_id):
         print('inside send_email function')
         # try to trick spammers by checking whether the honeypot field is
         # filled in; not super complicated/effective but it works

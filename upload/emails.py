@@ -3,30 +3,48 @@ from django.core.mail import EmailMessage
 from django.template import Context
 from django.template.loader import render_to_string
 
-def send_upload_email(email, message,job):
-    c = Context({'email': email, 'message': message, 'job': job})
+
+def send_upload_email(job):
+
+    c = Context({'job': job,'site_url':settings.SITE_URL})
 
     email_subject = render_to_string(
-        'upload/email/upload_email_subject.txt', c).replace('\n', '')
-    email_body = render_to_string('upload/email/upload_email_body.txt', c)
+    'upload/email/upload_email_subject.txt', c).replace('\n', '')
 
-    email = EmailMessage(
-        email_subject, email_body, email,
-        [settings.DEFAULT_FROM_EMAIL], [],
-        headers={'Reply-To': email}
-    )
-    return email.send(fail_silently=False)
+    email_body = render_to_string(
+    'upload/email/upload_email_body.txt', c)
+    email_to = job.emailaddress
+    email_from = settings.DEFAULT_FROM_EMAIL
 
+    email_message = EmailMessage(
+	email_subject,
+	email_body,
+	email_to,
+	[email_to],
+	headers={'Reply-To': settings.DEFAULT_FROM_EMAIL}
+	)
+    return email_message.send(fail_silently=False)
+ 
 
 def send_processing_complete_email(job):
-    c = Context({'job':job,'site_url':settings.SITE_URL})
 
+    c = Context({'job':job,'site_url':settings.SITE_URL})
     email_subject = render_to_string(
         'upload/email/upload_processing_complete_subject.txt',c).replace('\n','')
-    email_body = render_to_string('upload/email/upload_processing_complete_body.txt',c)
-    email = EmailMessage(
-        email_subject, email_body, job.emailaddress,
-        [settings.DEFAULT_FROM_EMAIL],[],
-        headers={'Reply-To': job.emailaddress}
-    )
-    return email.send(fail_silently=False)
+
+    email_body = render_to_string(
+    'upload/email/upload_processing_complete_body.txt', c)
+    email_to = job.emailaddress
+    email_from = settings.DEFAULT_FROM_EMAIL
+
+    email_message = EmailMessage(
+        email_subject,
+        email_body,
+        email_to,
+        [email_to],
+        headers={'Reply-To': settings.DEFAULT_FROM_EMAIL}
+        )
+    return email_message.send(fail_silently=False)
+
+
+
