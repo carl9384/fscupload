@@ -21,10 +21,10 @@
 
     <div class="collapse navbar-collapse" id="3dfsc-navbar">
     <ul class="nav navbar-nav">
-    <li class="active"><a href="{% url 'upload:index' %}">Info</a></li>
+    <li {% if "/upload/" == request.path %}class="active"{% endif %}><a href="{% url 'upload:index' %}">Info</a></li>
     {% if user.is_authenticated %}
-    <li><a href="{% url 'upload:submit' %}">Submit Job</a></li>
-    <li><a href="{% url 'upload:jobs' %}">Jobs</a></li>
+    <li {% if "submit" in request.path %}class="active"{% endif %}><a href="{% url 'upload:submit' %}">Submit Job</a></li>
+    <li {% if "results" in request.path %}class="active"{% endif %}><a href="{% url 'upload:jobs' %}">Jobs</a></li>
     {% if user.is_superuser %}
     <li><a href="{% url 'admin:index' %}">Admin</a></li>
     {% endif %}
