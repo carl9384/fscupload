@@ -37,6 +37,8 @@ urlpatterns = [
              ),
             name='registration_register',
              ),
+
+    url(r'^accounts/login/',fscupload_views.custom_login,name='accounts-login'),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^accounts/password/reset/$', auth_views.password_reset, name='password_reset'),
     url(r'^accounts/password/reset/complete$', auth_views.password_reset_complete, name='password_reset_complete'),

@@ -1,6 +1,7 @@
 from django.test import TestCase,Client
 
 from django.contrib.auth.models import User
+
 # Create your tests here.
 
 class CreateUserTestCase(TestCase):
@@ -23,5 +24,4 @@ class CreateUserTestCase(TestCase):
         response_post = self.client.post('/accounts/login/',{'username':'testuser','password':'testpassword'})
         self.assertEqual(response,True)
         self.assertEqual(response_post.status_code,302)
-
 

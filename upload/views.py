@@ -30,11 +30,9 @@ def submit(request):
 
         form = FscjobForm(request.POST, request.FILES)
         if form.is_valid():
-            if 'maskfile' in request.FILES:
-                newdoc = Fscjob(halfmap1file = request.FILES['halfmap1file'],
+            newdoc = Fscjob(halfmap1file = request.FILES['halfmap1file'],
                                 halfmap2file = request.FILES['halfmap2file'],
                                 fullmapfile  = request.FILES['fullmapfile'],
-                                maskfile = request.FILES['maskfile'],
                                 jobname = request.POST['jobname'],
                                 emailaddress = request.POST['emailaddress'],
                                 apix = request.POST['apix'],
@@ -45,50 +43,27 @@ def submit(request):
                                 user = request.user,
                                 password = generate_uniquestring()
                                 )
-
-                newdoc.uniquefolder = generate_uniquestring()
-        
-                uniquefolder = newdoc.uniquefolder+"/"
-                newdoc.halfmap1file.name = uniquefolder+newdoc.halfmap1file.name
-                newdoc.halfmap2file.name = uniquefolder+newdoc.halfmap2file.name
-                newdoc.fullmapfile.name = uniquefolder+newdoc.fullmapfile.name
-                newdoc.maskfile.name = uniquefolder+newdoc.maskfile.name
                 
-                print('newdoc is',newdoc.halfmap1file.name)
-                newdoc.save()
-                send_upload_email_task.delay(newdoc.id)
-                #form.send_email(newdoc.id)
-                process_3DFSC_task.delay(newdoc.id)
-            else:
-                newdoc = Fscjob(halfmap1file = request.FILES['halfmap1file'],
-                                halfmap2file = request.FILES['halfmap2file'],
-                                fullmapfile  = request.FILES['fullmapfile'],
-                                emailaddress = request.POST['emailaddress'],
-                                jobname = request.POST['jobname'],
-                                apix = request.POST['apix'],
-                                coneangle = request.POST['coneangle'],
-                                fsccutoff = request.POST['fsccutoff'],
-                                sphericitythresh = request.POST['sphericitythresh'],
-                                highpassfilter = request.POST['highpassfilter'],
-                                user = request.user,
-                                password = generate_uniquestring()
-                                ) 
-                newdoc.uniquefolder = generate_uniquestring()
-                uniquefolder = newdoc.uniquefolder+"/"
-                newdoc.halfmap1file.name = uniquefolder+newdoc.halfmap1file.name
-                newdoc.halfmap2file.name = uniquefolder+newdoc.halfmap2file.name
-                newdoc.fullmapfile.name  = uniquefolder+newdoc.fullmapfile.name
-                print('newdoc is',newdoc.halfmap1file.name)
-                newdoc.save()
-                send_upload_email_task.delay(newdoc.id)
-                #form.send_email(newdoc.id)
-                process_3DFSC_task.delay(newdoc.id)
+            if 'maskfile' in request.FILES:
+                newdoc.maskfile = request.FILES['maskfile']
+
+            newdoc.uniquefolder = generate_uniquestring()
+    
+            uniquefolder = newdoc.uniquefolder+"/"
+            newdoc.halfmap1file.name = uniquefolder+newdoc.halfmap1file.name
+            newdoc.halfmap2file.name = uniquefolder+newdoc.halfmap2file.name
+            newdoc.fullmapfile.name = uniquefolder+newdoc.fullmapfile.name
+            if 'maskfile' in request.FILES:
+                newdoc.maskfile = request.FILES['maskfile']
+                newdoc.maskfile.name = uniquefolder+newdoc.maskfile.name
             
+            newdoc.save()
+            send_upload_email_task.delay(newdoc.id)
+            process_3DFSC_task.delay(newdoc.id)
             temp_path = os.path.join(settings.PROJECT_ROOT,newdoc.uniquefolder)
 
         else:
 
-            #newdoc.save()
             form = FscjobForm()
             
             # Redirect to the after POST
