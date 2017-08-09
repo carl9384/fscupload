@@ -80,7 +80,7 @@ def index(request):
     return render(request,'upload/index.html',{})
 
 def uploadcomplete(request):
-    return render(request,'upload/uploadcomplete.html',{})
+    return render(request,'upload/uploadcomplete.html',{"DEFAULT_FROM_EMAIL":settings.DEFAULT_FROM_EMAIL})
 
 
 class fscjobListView(ListView):
