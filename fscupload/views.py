@@ -7,6 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import HttpResponseRedirect
 from upload.models import Fscjob
 
+# Add an authentication layer to prevent unwanted access to uploaded and processed data.
 @login_required
 def protected_serve(request, path, document_root=None):
     try:
@@ -22,7 +23,6 @@ def protected_serve(request, path, document_root=None):
 
 
 # If a user is already logged in and arrives at the login page, redirect them to index.
-
 def custom_login(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/')
