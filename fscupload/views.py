@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import login
 from django.views.static import serve
 from django.conf import settings
 
@@ -20,4 +21,10 @@ def protected_serve(request, path, document_root=None):
         return HttpResponseRedirect('/')
 
 
+# If a user is already logged in and arrives at the login page, redirect them to index.
 
+def custom_login(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/')
+    else:
+        return login(request)

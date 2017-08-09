@@ -26,6 +26,7 @@ from registration.backends.hmac.views import RegistrationView
 from fscupload.forms import CustomUserForm
 import fscupload.views as fscupload_views
 
+
 # admin.autodiscover()
 from upload import views as uploadviews
 
@@ -40,7 +41,8 @@ urlpatterns = [
     url(r'^accounts/password/reset/$', auth_views.password_reset, name='password_reset'),
     url(r'^accounts/password/reset/complete$', auth_views.password_reset_complete, name='password_reset_complete'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^login/$',auth_views.login,name='login'),
+    #url(r'^login/$',auth_views.login,name='login'),
+    url(r'^login/$',fscupload_views.custom_login,name='login'),
     url(r'^logout/$', auth_views.logout_then_login,name='logout'),
     url(r'^upload/', include('upload.urls', namespace='upload')),
     url(r'^$', uploadviews.index,name='index'),
