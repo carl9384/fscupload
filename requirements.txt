@@ -7,6 +7,7 @@ decorator==4.0.11
 Django==1.11.3
 django-bootstrap3==9.0.0
 django-registration==2.2
+django-sendfile==0.3.11
 h5py==2.7.0
 kombu==3.0.37
 llvmlite==0.19.0
@@ -17,6 +18,7 @@ numba==0.34.0
 numpy==1.13.1
 olefile==0.44
 Pillow==4.2.1
+pyflakes==1.6.0
 pyminizip==0.2.1
 pyparsing==2.1.4
 python-dateutil==2.6.0
@@ -25,5 +27,6 @@ PyWavelets==0.5.2
 redis==2.10.3
 scikit-image==0.13.0
 scipy==0.19.1
+selenium==3.4.3
 six==1.10.0
 vine==1.1.4

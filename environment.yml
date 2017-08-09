@@ -61,10 +61,13 @@ dependencies:
   - django==1.11.3
   - django-bootstrap3==9.0.0
   - django-registration==2.2
+  - django-sendfile==0.3.11
   - kombu==3.0.37
   - mrcfile==1.0.0
+  - pyflakes==1.6.0
   - pyminizip==0.2.1
   - redis==2.10.3
+  - selenium==3.4.3
   - vine==1.1.4
 prefix: /home/cnegro/anaconda3/envs/fscenv
 
