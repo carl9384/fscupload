@@ -24,7 +24,7 @@ from django.views.generic import TemplateView
 import registration.backends
 from registration.backends.hmac.views import RegistrationView
 from fscupload.forms import CustomUserForm
-
+import fscupload.views as fscupload_views
 
 # admin.autodiscover()
 from upload import views as uploadviews
@@ -44,6 +44,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout_then_login,name='logout'),
     url(r'^upload/', include('upload.urls', namespace='upload')),
     url(r'^$', uploadviews.index,name='index'),
+    url(r'^{}(?P<path>.*)$'.format(settings.MEDIA_URL[1:]), fscupload_views.protected_serve,{}),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

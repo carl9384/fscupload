@@ -15,5 +15,6 @@ urlpatterns =[
     url(r'^jobs/$',login_required(upload_views.fscjobListView.as_view()), name='jobs'),
     url(r'^results/(?P<pk>\d+)$',login_required(upload_views.fscjobDetailView.as_view()),name='results'),
     url(r'^results/$',login_required(upload_views.fscjobListView.as_view()),name='jobs'),
-    ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
+    ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    

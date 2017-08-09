@@ -17,6 +17,7 @@ from upload.forms import FscjobForm
 from upload.tasks import process_3DFSC_task
 from upload.tasks import send_upload_email_task
 
+from sendfile import sendfile
 
 def generate_uniquestring():
     hasher = sha3_512()
@@ -136,3 +137,12 @@ class fscjobDetailView(DetailView):
         context['MEDIA_URL'] = settings.MEDIA_URL
         print("fscjobDetailView context is",context)
         return context
+
+from django.contrib.auth.decorators import login_required
+from django.views.static import serve
+from django.conf import settings
+
+from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import HttpResponse
+
+
