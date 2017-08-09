@@ -34,7 +34,6 @@ def submit(request):
                                 halfmap2file = request.FILES['halfmap2file'],
                                 fullmapfile  = request.FILES['fullmapfile'],
                                 jobname = request.POST['jobname'],
-                                emailaddress = request.POST['emailaddress'],
                                 apix = request.POST['apix'],
                                 coneangle = request.POST['coneangle'],
                                 fsccutoff = request.POST['fsccutoff'],
@@ -47,6 +46,7 @@ def submit(request):
             if 'maskfile' in request.FILES:
                 newdoc.maskfile = request.FILES['maskfile']
 
+            newdoc.emailaddress = request.user.email
             newdoc.uniquefolder = generate_uniquestring()
     
             uniquefolder = newdoc.uniquefolder+"/"
