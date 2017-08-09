@@ -1,23 +1,17 @@
-from django.shortcuts import render
-
-# Create your views here.
-
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render,render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from hashlib import sha3_512
-import os
 from upload.models import Fscjob,generate_uniquestring
 from upload.forms import FscjobForm
 from upload.tasks import process_3DFSC_task
 from upload.tasks import send_upload_email_task
 
-from sendfile import sendfile
+#from sendfile import sendfile
 
 def generate_uniquestring():
     hasher = sha3_512()
@@ -63,7 +57,6 @@ def submit(request):
             newdoc.save()
             send_upload_email_task.delay(newdoc.id)
             process_3DFSC_task.delay(newdoc.id)
-            temp_path = os.path.join(settings.PROJECT_ROOT,newdoc.uniquefolder)
 
         else:
 

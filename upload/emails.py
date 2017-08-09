@@ -14,7 +14,6 @@ def send_upload_email(job):
     email_body = render_to_string(
     'upload/email/upload_email_body.txt', c)
     email_to = job.emailaddress
-    email_from = settings.DEFAULT_FROM_EMAIL
 
     email_message = EmailMessage(
 	email_subject,
@@ -35,7 +34,6 @@ def send_processing_complete_email(job):
     email_body = render_to_string(
     'upload/email/upload_processing_complete_body.txt', c)
     email_to = job.emailaddress
-    email_from = settings.DEFAULT_FROM_EMAIL
 
     email_message = EmailMessage(
         email_subject,

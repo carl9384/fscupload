@@ -1,13 +1,10 @@
 from celery.decorators import task
 from celery.utils.log import get_task_logger
-from django.conf import settings
-import os
 from upload.emails import send_upload_email
 from upload.emails import send_processing_complete_email
 from upload.process import process_3DFSC
+
 from upload.models import Fscjob
-from upload.fscparams import fscparams
-from upload.compress import compress_files
 
 logger = get_task_logger(__name__)
 

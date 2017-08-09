@@ -1,14 +1,9 @@
-from django import conf
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from hashlib import sha3_512
 
 # Create your models here.
-
-from django.db import models
-
 
 def generate_uniquestring(numchars):
 
