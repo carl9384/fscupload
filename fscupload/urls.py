@@ -49,6 +49,9 @@ urlpatterns = [
     url(r'^upload/', include('upload.urls', namespace='upload')),
     url(r'^$', uploadviews.index,name='index'),
     url(r'^{}(?P<path>.*)$'.format(settings.MEDIA_URL[1:]), fscupload_views.protected_serve,{}),
+#    url(r'^media/(?P<pk>\d+)/(?P<num_user_jobs>\d+)/(?P<path>.*)$', fscupload_views.protected_serve,{}),
+#    r'^results/(?P<pk>\d+)$
+
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

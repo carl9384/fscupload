@@ -5,16 +5,13 @@ from django.conf import settings
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import HttpResponseRedirect
-from upload.models import Fscjob
 
 # Add an authentication layer to prevent unwanted access to uploaded and processed data.
 @login_required
 def protected_serve(request, path, document_root=None):
     try:
-        objs = Fscjob.objects.filter(user=request.user.id)
-        uniquefolders = [obj.uniquefolder for obj in objs]
-        for folder in uniquefolders:
-            if folder in path:
+        pk = path.split("/")[0]
+        if int(pk) == request.user.id:
                 document_root = settings.MEDIA_URL[1:]
                 return serve(request,path,document_root)
         return HttpResponseRedirect('/')

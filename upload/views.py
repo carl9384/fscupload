@@ -30,6 +30,7 @@ def submit(request):
 
         form = FscjobForm(request.POST, request.FILES)
         if form.is_valid():
+            num_jobs = Fscjob.objects.filter(user=request.user).count()
             newdoc = Fscjob(halfmap1file = request.FILES['halfmap1file'],
                                 halfmap2file = request.FILES['halfmap2file'],
                                 fullmapfile  = request.FILES['fullmapfile'],
@@ -48,8 +49,10 @@ def submit(request):
 
             newdoc.emailaddress = request.user.email
             newdoc.uniquefolder = generate_uniquestring()
-    
+
             uniquefolder = newdoc.uniquefolder+"/"
+            uniquefolder = str(request.user.id)+"/%03d/"%num_jobs
+            newdoc.uniquefolder = uniquefolder
             newdoc.halfmap1file.name = uniquefolder+newdoc.halfmap1file.name
             newdoc.halfmap2file.name = uniquefolder+newdoc.halfmap2file.name
             newdoc.fullmapfile.name = uniquefolder+newdoc.fullmapfile.name
@@ -112,12 +115,4 @@ class fscjobDetailView(DetailView):
         context['MEDIA_URL'] = settings.MEDIA_URL
         print("fscjobDetailView context is",context)
         return context
-
-from django.contrib.auth.decorators import login_required
-from django.views.static import serve
-from django.conf import settings
-
-from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import HttpResponse
-
 

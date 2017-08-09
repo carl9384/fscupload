@@ -13,10 +13,10 @@ class fscparams:
         self.halfmap2 = os.path.join(settings.MEDIA_ROOT,Fscjob.halfmap2file.name)
         self.fullmap =  os.path.join(settings.MEDIA_ROOT,Fscjob.fullmapfile.name)
         
-
-        if Fscjob.maskfile is not None:
+        if Fscjob.maskfile:
             self.mask = os.path.join(settings.MEDIA_ROOT,Fscjob.maskfile.name)
-
+        else:
+            self.mask = ''
         self.apix = float(Fscjob.apix)
         self.ThreeDFSC = Fscjob.jobname
         self.dthetaInDegrees = Fscjob.coneangle

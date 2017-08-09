@@ -7,13 +7,15 @@ from upload.emails import send_processing_complete_email
 
 def process_3DFSC(job):
 
-    os.chdir(settings.MEDIA_ROOT+"/"+job.uniquefolder)
+    filepath,filename = os.path.split(job.fullmapfile.name)
+    filepath = filepath+"/"
+    os.chdir(settings.MEDIA_ROOT+filepath)
     options = fscparams(job)
+
     execute(options)
-    globdirectory = settings.MEDIA_ROOT+"/"+job.uniquefolder+"/"
-    print("Compress contents of directory ",globdirectory)
+    globdirectory = settings.MEDIA_ROOT+filepath+"/"
     compress_files(globdirectory+"**",globdirectory+options.ThreeDFSC+".zip",job.password,1)
-    job.completefile = job.uniquefolder+"/"+options.ThreeDFSC+".zip"
+    job.completefile = filepath+"/"+options.ThreeDFSC+".zip"
     job.save()
 
     send_processing_complete_email(job)
