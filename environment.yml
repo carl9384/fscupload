@@ -54,19 +54,19 @@ dependencies:
 - xz=5.2.2=1
 - zlib=1.2.8=3
 - pip:
-  - amqp==1.4.9
+  - amqp==2.2.1
   - anyjson==0.3.3
-  - billiard==3.3.0.23
-  - celery==3.1.18
+  - billiard==3.5.0.3
+  - celery==4.1.0
   - django==1.11.3
   - django-bootstrap3==9.0.0
   - django-registration==2.2
   - django-sendfile==0.3.11
-  - kombu==3.0.37
+  - kombu==4.1.0
   - mrcfile==1.0.0
   - pyflakes==1.6.0
   - pyminizip==0.2.1
-  - redis==2.10.3
+  - redis==2.10.5
   - selenium==3.4.3
   - vine==1.1.4
 prefix: /home/cnegro/anaconda3/envs/fscenv
