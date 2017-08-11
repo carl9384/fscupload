@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-from hashlib import sha3_512
+from hashlib import sha512
 
 # Create your models here.
 
@@ -11,7 +11,7 @@ def generate_uniquestring(numchars):
     assert numchars > 0
     assert numchars <21
 
-    hasher = sha3_512()
+    hasher = sha512()
     hasher.update(str(timezone.now()).encode('utf-8'))
     return hasher.hexdigest()[-numchars:]
 

@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from hashlib import sha3_512
+from hashlib import sha512
 from upload.models import Fscjob,generate_uniquestring
 from upload.forms import FscjobForm
 from upload.tasks import process_3DFSC_task
@@ -14,7 +14,7 @@ from upload.tasks import send_upload_email_task
 #from sendfile import sendfile
 
 def generate_uniquestring():
-    hasher = sha3_512()
+    hasher = sha512()
     hasher.update(str(timezone.now()).encode('utf-8'))
     return hasher.hexdigest()[:20]
 
