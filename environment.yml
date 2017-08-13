@@ -69,5 +69,6 @@ dependencies:
   - redis==2.10.5
   - selenium==3.4.3
   - vine==1.1.4
+  - uWSGI==2.0.15
 prefix: /home/cnegro/anaconda3/envs/fscenv
 
