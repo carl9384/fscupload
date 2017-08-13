@@ -12,7 +12,7 @@ def protected_serve(request, path, document_root=None):
     try:
         pk = path.split("/")[0]
         if int(pk) == request.user.id:
-		document_root = settings.MEDIA_ROOT
+                document_root = settings.MEDIA_ROOT
                 return serve(request,path,document_root)
         return HttpResponseRedirect('/')
     except ObjectDoesNotExist:
