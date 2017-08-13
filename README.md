@@ -83,3 +83,6 @@ https://realpython.com/blog/python/asynchronous-tasks-with-django-and-celery/
 http://garmoncheg.blogspot.com.au/2012/07/django-resetting-passwords-with.html
 https://stackoverflow.com/questions/388800/how-do-i-use-the-built-in-password-reset-change-views-with-my-own-templates
 https://github.com/johnsensible/django-sendfile
+
+uWSGI configuration:
+http://uwsgi-docs.readthedocs.io/en/latest/tutorials/Django_and_nginx.html
