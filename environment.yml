@@ -71,5 +71,6 @@ dependencies:
   - selenium==3.4.3
   - vine==1.1.4
   - uWSGI==2.0.15
+  - psycopg2==2.7.3
 prefix: /home/cnegro/anaconda3/envs/fscenv
 
