@@ -2,7 +2,7 @@ Hello,
 
 You recently registered an account with the username "{{user.username}}" at 3DFSC Remote Processing using this email address.
 
-To activate your account, please navigate to http://192.168.4.147:8000/accounts/activate/{{activation_key}}
+To activate your account, please navigate to {{site}}/accounts/activate/{{activation_key}}
 
 If you received this message in error, please ignore this message. Thanks,
 
