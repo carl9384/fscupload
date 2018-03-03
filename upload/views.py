@@ -106,6 +106,7 @@ class fscjobDetailView(DetailView):
         context['now'] = timezone.now()
         context['SITE_URL'] = settings.SITE_URL
         context['MEDIA_URL'] = settings.MEDIA_URL
+        #context['histogram_url'] = 
         print("fscjobDetailView context is",context)
         return context
 
