@@ -32,7 +32,11 @@ class Fscjob(models.Model):
     password = models.CharField(max_length=20,default='defaultpassword',verbose_name="Password")
     created_date = models.DateTimeField(auto_now_add=True,verbose_name="Date created")
     modified_date = models.DateTimeField(auto_now=True,verbose_name="Date last modified")
-    completefile = models.FileField(verbose_name="Results file name")
+    completefile = models.FileField(verbose_name="Zipped results file")
+    histogram_file = models.FileField(verbose_name="Histogram png file")
+    ftplot_file = models.FileField(verbose_name="FTPlot jpg file")
+    plots_file = models.FileField(verbose_name="Plots jpg file")
+    
     user = models.ForeignKey(User)
 
 

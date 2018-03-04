@@ -5,6 +5,16 @@ from django.conf import settings
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fscupload.settings')
+
+
+# we need these paths if we are using the gpu version of fscupload
+if settings.NUMBAPRO_LIBDEVICE:
+    os.environ['NUMBAPRO_LIBDEVICE'] = settings.NUMBAPRO_LIBDEVICE
+
+if settings.NUMBAPRO_NVVM:
+    os.environ['NUMBAPRO_NVVM'] = settings.NUMBAPRO_NVVM
+
+
 app = Celery('fscupload')
 
 # Using a string here means the worker will not have to
