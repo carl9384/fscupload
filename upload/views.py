@@ -21,9 +21,10 @@ def generate_uniquestring():
 def submit(request):
 
     if request.method == 'POST':
-
         form = FscjobForm(request.POST, request.FILES)
+        print("form is ",form)
         if form.is_valid():
+            print("VALID")
             num_jobs = Fscjob.objects.filter(user=request.user).count()
             newdoc = Fscjob(halfmap1file = request.FILES['halfmap1file'],
                                 halfmap2file = request.FILES['halfmap2file'],
@@ -55,8 +56,11 @@ def submit(request):
                 newdoc.maskfile.name = uniquefolder+newdoc.maskfile.name
             
             newdoc.save()
+            print("newdoc saved")
             send_upload_email_task.delay(newdoc.id)
+            print("email sent")
             process_3DFSC_task.delay(newdoc.id)
+            print("process complete")
 
         else:
 
