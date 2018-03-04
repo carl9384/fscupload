@@ -15,7 +15,7 @@ def process_3DFSC(job):
     execute(options)
     globdirectory = settings.MEDIA_ROOT+filepath+"/"
     compress_files(globdirectory+"**",globdirectory+options.ThreeDFSC+".zip",job.password,1)
-    job.completefile = filepath+"/"+options.ThreeDFSC+".zip"
+    job.completefile = filepath+options.ThreeDFSC+".zip"
     job.save()
 
     send_processing_complete_email(job)
