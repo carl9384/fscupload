@@ -6,7 +6,6 @@ from django.conf import settings
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import HttpResponseRedirect,redirect
-from sendfile import sendfile
 import os
 
 # Add an authentication layer to prevent unwanted access to uploaded and processed data.
