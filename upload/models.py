@@ -33,9 +33,9 @@ class Fscjob(models.Model):
     created_date = models.DateTimeField(auto_now_add=True,verbose_name="Date created")
     modified_date = models.DateTimeField(auto_now=True,verbose_name="Date last modified")
     completefile = models.FileField(verbose_name="Zipped results file")
-    histogram_file = models.FileField(verbose_name="Histogram png file")
-    ftplot_file = models.FileField(verbose_name="FTPlot jpg file")
-    plots_file = models.FileField(verbose_name="Plots jpg file")
+    histogram_file = models.FileField(verbose_name="Histogram png file",null=True)
+    ftplot_file = models.FileField(verbose_name="FTPlot jpg file",null=True)
+    plots_file = models.FileField(verbose_name="Plots jpg file",null=True)
     
     user = models.ForeignKey(User)
 
