@@ -37,6 +37,7 @@
     <table>
       <tbody>
         <tr><th>Job Name</th><td>{{fscjob.jobname}}</td></tr>
+        <tr><th>Job Status</th><td>{{fscjob.status}}</td></tr>
         <tr><th>Time Completed</th><td>{{fscjob.modified_date|date:"m/d/Y - H:m:s"}}</td></tr>
         <tr><th>Compressed Results</th><td><a href="{{ SITE_URL }}{{fscjob.completefile.url}}">{{fscjob.jobname}}.zip</a></td></tr>
         <tr><th>Password for Compressed Results</th><td>{{fscjob.password}}</td></tr>
