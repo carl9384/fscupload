@@ -53,20 +53,30 @@
   </div !--container-fluid-->
 </nav !--nav-->
 
-
-<!--style>
-body { 
-    padding-top: 65px; 
-}
-</style-->
 {% endblock %}
     <div class="container">
 		<h1>Remote 3DFSC Processing</h1>
 
         {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
-
-	
         {% block content %}{% endblock %}
+        {% block style %} 
+        <style>
+            table {
+              width:100%;
+              padding:20px ;
+              border: 20px solid;
+              border-width: thin;
+            }
+
+            th,tr,td {
+              padding: 20px;
+              border: 20px solid;
+              border-width: thin;
+              text-align: left;
+            }
+        </style>
+        {% endblock %}
+
     </div>
 
 {% endblock %}
