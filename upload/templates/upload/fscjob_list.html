@@ -7,6 +7,10 @@
 <div class="container-fluid">
 <div class="row">
 <div class="col-md-6">
+
+<div class="panel panel-default">
+<div class="panel-heading">Active and completed jobs</div><!--panel-title-->
+<div class="panel-body">
 {% if fscjobs %}
 
 <table>
@@ -35,6 +39,8 @@
 <p> You have not processed any jobs. Click <a href="{% url 'upload:submit' %}">here</a> to submit a 3DFSC job.</p>
 {% endif %}
 
+</div><!--panel-body-->
+</div><!--panel panel-default-->
 </div><!--col-md-6-->
 <div class="col-md-6"></div><!--col-md-6-->
 </div><!--row-->
