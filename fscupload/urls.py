@@ -34,17 +34,11 @@ urlpatterns = [
     url(r'^accounts/password/reset/$', auth_views.password_reset, name='password_reset'),
     url(r'^accounts/password/reset/complete$', auth_views.password_reset_complete, name='password_reset_complete'),
     url(r'^admin/', include(admin.site.urls)),
-    #url(r'^login/$',auth_views.login,name='login'),
     url(r'^login/$',fscupload_views.custom_login,name='login'),
     url(r'^logout/$', auth_views.logout_then_login,name='logout'),
     url(r'^upload/', include('upload.urls', namespace='upload')),
     url(r'^$', uploadviews.index,name='index'),
-    #url(r'^{}(?P<path>.*)$'.format(settings.MEDIA_URL[1:]), fscupload_views.protected_serve,name='protected_serve'),
     url(r'^media/(?P<path>.*)$', fscupload_views.protected_serve,name='protected_serve'),
-    url(r'^download_file/(?P<path>.*)$', fscupload_views.protected_download,name='protected_download'),
-    #url(r'^<path>$', fscupload_views.protected_serve,name='protected_serve'),
-#    url(r'^media/(?P<pk>\d+)/(?P<num_user_jobs>\d+)/(?P<path>.*)$', fscupload_views.protected_serve,{}),
-#    r'^results/(?P<pk>\d+)$
 
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

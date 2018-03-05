@@ -17,34 +17,17 @@ def protected_serve(request, path, document_root=None):
                 document_root = settings.MEDIA_ROOT
                 sendfile_path = os.path.join('/protected/',path)
                 response = HttpResponse()
- #               response['Content-Type'] = 'image/png'
+
+                if path[-4:] == '.zip':
+                    response['Content-Type'] = 'application'
+                else:
+                    response['Content-Type'] = 'image/png'
                 response['X-Accel-Redirect'] = sendfile_path
-                print("response['X-Accel-Redirect'] is ",response['X-Accel-Redirect'])
-                print("response is "+str(response))
+   
                 return response
         return HttpResponseRedirect('/')
     except ObjectDoesNotExist:
         return HttpResponseRedirect('/')
-
-@login_required
-def protected_download(request, path, document_root=None):
-    try:
-        pk = path.split("/")[0]
-        if int(pk) == request.user.id:
-                document_root = settings.MEDIA_ROOT
-                sendfile_path = os.path.join('/download/',path)
-                print("protected_download")
-                response = HttpResponse(mimetype='application/force-download')
-                response['X-Accel-Redirect'] = sendfile_path
-                response['Content-Disposition'] = 'attachment; filename="%s"'%sendfile_path
-
-                print("response['X-Accel-Redirect'] is ",response['X-Accel-Redirect'])
-                print("response is "+str(response))
-                return response
-        return HttpResponseRedirect('/')
-    except ObjectDoesNotExist:
-        return HttpResponseRedirect('/')
-
 
 
 # If a user is already logged in and arrives at the login page, redirect them to index.
