@@ -5,6 +5,7 @@ from upload.emails import send_processing_complete_email
 from upload.process import process_3DFSC
 
 from upload.models import Fscjob
+from time import sleep
 
 logger = get_task_logger(__name__)
 
@@ -25,14 +26,18 @@ def send_processing_complete_email_task(job_id):
     return send_processing_complete_email(job)
 
 
-@task(name="sum_two_numbers")
-def add(x, y): 
-    return x + y 
+@task(name="sum_two_numbers",bind=True)
+def add(self,x, y): 
+    
+    sleep(2)
+    return self.request.id
 
-@task(name="process_3DFSC_task")
-def process_3DFSC_task(job_id):
+@task(name="process_3DFSC_task",bind=True)
+def process_3DFSC_task(self,job_id):
 
     job = Fscjob.objects.get(pk=job_id)
+    job.task_id = self.request.id
+    job.save()
     logger.info("Process_3DFSC task launched")
     return process_3DFSC(job)
 

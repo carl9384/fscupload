@@ -34,3 +34,6 @@ vine==1.1.4
 gunicorn==19.7
 django-fileprovider==0.1.4
 psycopg2-binary==2.7.4
+django-celery-results==1.0.1
+django-extensions==2.0.0
+

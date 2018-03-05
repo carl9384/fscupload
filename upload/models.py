@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from hashlib import sha512
+from celery.result import AsyncResult
 
 # Create your models here.
 
@@ -39,6 +40,8 @@ class Fscjob(models.Model):
     
     user = models.ForeignKey(User)
 
+    task_id = models.CharField(max_length=36,default='',null=True,verbose_name="Task ID")
+
 
 
     #https://stackoverflow.com/questions/8080257/how-to-show-download-link-for-attached-file-in-filefield-in-django-admin
@@ -72,6 +75,10 @@ class Fscjob(models.Model):
     def get_url(self):
         return self.halfmap1file.url
 
-def to_link(filename):
-    return "<a href='%s' download>%s</a>" % (filename,filename)
+    def to_link(filename):
+        return "<a href='%s' download>%s</a>" % (filename,filename)
+
+    @property
+    def status(self):
+        return AsyncResult(self.task_id).status
 

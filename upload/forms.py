@@ -11,7 +11,7 @@ class FscjobForm(forms.ModelForm):
 
     class Meta:
         model = Fscjob
-        exclude = ['emailaddress','uniquefolder','password','completefile','user','histogram_file','ftplot_file','plots_file']
+        exclude = ['emailaddress','uniquefolder','password','completefile','user','histogram_file','ftplot_file','plots_file','task_id']
         widgets = { 'apix': forms.TextInput({'size': 10})}
 
 
