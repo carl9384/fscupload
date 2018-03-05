@@ -4,18 +4,44 @@
 
 {% block content %}
 
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
 {% if fscjobs %}
+
+<table>
+<thead>
+<tr>
+<th>Job Name</th>
+<th>Time Completed</th>
+<th>Results</th>
+</tr>
+</thead>
+
+<br>
+<tbody>
 {% for job in fscjobs %}
-	{% if job.completefile %}
-	<p>{{job.jobname}} -- {{job.emailaddress}} -- 
-	<a href="{{ SITE_URL }}{{job.completefile.url}}">{{job.jobname}}.zip</a> -- 
-	<a href="{% url 'upload:results' pk=job.pk %}">results page</a></p>
-	{% else %}
-	<p>{{job.jobname}} -- {{job.emailaddress}} -- Job still being processed.</p>
-	{% endif %}	
+{% if job.completefile %}
+
+<tr><td>{{job.jobname}}</td><td>{{job.modified_date|date:"m/d/Y H:m:s"}}</td><td> <a href="{% url 'upload:results' pk=job.pk %}">Link</a></td></tr>
+{% else %}
+
+<tr><td>{{job.jobname}}</td><td>{{job.modified_date|date:"m/d/Y H:m:s"}}</td><td>Job still being processed.</td></tr>
+{% endif %}	
 {% endfor %}
+</tbody>
+</table>
 {% else %}
 <p> You have not processed any jobs. Click <a href="{% url 'upload:submit' %}">here</a> to submit a 3DFSC job.</p>
 {% endif %}
+
+</div><!--col-md-6-->
+<div class="col-md-6"></div><!--col-md-6-->
+</div><!--row-->
+</div><!--container-fluid-->
+{% endblock %}
+
+{% block style %}
+{{block.super}}
 {% endblock %}
 
