@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
 <div class="row">
-<div class="col-md-6">
+<div class="col-md-8">
 
 <div class="panel panel-default">
 <div class="panel-heading">Active and completed jobs</div><!--panel-title-->
@@ -16,7 +16,9 @@
 <table>
 <thead>
 <tr>
+<th>Job ID</th>
 <th>Job Name</th>
+<th>Job Status</th>
 <th>Time Completed</th>
 <th>Results</th>
 </tr>
@@ -25,13 +27,18 @@
 <br>
 <tbody>
 {% for job in fscjobs %}
-{% if job.completefile %}
-
-<tr><td>{{job.jobname}}</td><td>{{job.modified_date|date:"m/d/Y H:m:s"}}</td><td> <a href="{% url 'upload:results' pk=job.pk %}">Link</a></td></tr>
-{% else %}
-
-<tr><td>{{job.jobname}}</td><td>{{job.modified_date|date:"m/d/Y H:m:s"}}</td><td>Job still being processed.</td></tr>
-{% endif %}	
+<tr>
+    <td>{{job.id}}</td>
+    <td>{{job.jobname}}</td>
+    <td>{{job.status}}</td> 
+    <td>{{job.modified_date|date:"m/d/Y H:m:s"}}</td>
+    <td>{% if job.status == 'PENDING' %}
+          {{job.status}}
+        {% else %} 
+          <a href="{% url 'upload:results' pk=job.pk %}">Link</a>
+        {% endif %}
+    </td>
+</tr>
 {% endfor %}
 </tbody>
 </table>
@@ -41,8 +48,8 @@
 
 </div><!--panel-body-->
 </div><!--panel panel-default-->
-</div><!--col-md-6-->
-<div class="col-md-6"></div><!--col-md-6-->
+</div><!--col-md-8-->
+<div class="col-md-4"></div><!--col-md-4-->
 </div><!--row-->
 </div><!--container-fluid-->
 {% endblock %}

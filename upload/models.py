@@ -80,5 +80,11 @@ class Fscjob(models.Model):
 
     @property
     def status(self):
-        return AsyncResult(self.task_id).status
+        status = ''
+        if self.task_id:
+            status = AsyncResult(self.task_id).status
+        else:
+            status = 'DONE'
+
+        return status
 
