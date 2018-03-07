@@ -3,9 +3,9 @@
 
 Hi,
 
-Your 3DFSC job called {{ job.jobname | safe }} is now processing.
+Your 3DFSC job called {{ job.jobname | safe }} with job ID #{{job.id | safe }} is now processing.
 
-You will receive an email shortly with instructions on how to retrieve your data.
+You will receive an email shortly with instructions on how to view and retrieve your data.
 
 
 Thanks,
