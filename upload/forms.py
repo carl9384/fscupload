@@ -1,13 +1,11 @@
 from django import forms
-from upload.models import Fscjob
-from upload.tasks import send_upload_email_task
 
-# Based on the instructions at https://realpython.com/blog/python/asynchronous-tasks-with-django-and-celery/
+from upload.models import Fscjob
 
 class FscjobForm(forms.ModelForm):
 
     honeypot = forms.CharField(widget=forms.HiddenInput(), required=False)
-
+    jobname = forms.CharField(min_length=5,max_length=40, required=True)
 
     class Meta:
         model = Fscjob
