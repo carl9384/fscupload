@@ -19,7 +19,7 @@ def generate_uniquestring(numchars):
 class Fscjob(models.Model):
 
     emailaddress = models.EmailField(verbose_name="Email Address")
-    jobname = models.CharField(max_length=15,default="3dfsc_run",verbose_name="Job Name")
+    jobname = models.CharField(max_length=35,default="",verbose_name="Job Name")
     halfmap1file = models.FileField(verbose_name="Half-map 1 file")
     halfmap2file = models.FileField(verbose_name="Half-map 2 file")
     fullmapfile  = models.FileField(verbose_name="Full map file")
