@@ -61,24 +61,19 @@ def submit(request):
             print("email sent")
             process_3DFSC_task.delay(newdoc.id)
             print("process complete")
+            return HttpResponseRedirect(reverse('upload:uploadcomplete'))
 
         else:
-
-            form = FscjobForm()
-            
-            # Redirect to the after POST
-            return HttpResponseRedirect(reverse('upload:index'))
         
-        return HttpResponseRedirect(reverse('upload:uploadcomplete'))
+            form = form
+            print("form is ",form)           
+            # Redirect to the after POST
+           
+            return render(request,'upload/submit.html',{'form':form})
     else:
         form = FscjobForm() # A empty, unbound form
 
-    # Load documents for the list page
-    documents = Fscjob.objects.all()
-
-    # Render list page with the documents and the form
-
-    return render(request,'upload/submit.html',{'documents': documents,'form':form})
+    return render(request,'upload/submit.html',{'form':form})
 
 def index(request):
     return render(request,'upload/index.html',{})

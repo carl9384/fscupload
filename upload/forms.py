@@ -1,11 +1,14 @@
 from django import forms
+from django.core.validators import RegexValidator
 
 from upload.models import Fscjob
 
-class FscjobForm(forms.ModelForm):
+no_space_validator = RegexValidator(r'^[^\s]+$',message='No spaces allowed',code='invalid_username')
 
+
+class FscjobForm(forms.ModelForm):
     honeypot = forms.CharField(widget=forms.HiddenInput(), required=False)
-    jobname = forms.CharField(min_length=5,max_length=40, required=True)
+    jobname = forms.CharField(min_length=5,max_length=40, required=True,validators=[no_space_validator])
     apix = forms.FloatField(max_value=3.0,required=True)
 
     class Meta:
