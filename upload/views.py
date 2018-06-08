@@ -80,8 +80,10 @@ def index(request):
 
 def uploadcomplete(request):
     return render(request,'upload/uploadcomplete.html',{"DEFAULT_FROM_EMAIL":settings.DEFAULT_FROM_EMAIL})
-
-
+	
+def info(request):
+    return render(request,'upload/info.html',{})
+	
 class fscjobListView(ListView):
 
     model = Fscjob

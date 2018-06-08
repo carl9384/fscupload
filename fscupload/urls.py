@@ -41,7 +41,7 @@ urlpatterns = [
     url(r'^media/(?P<path>.*)$', fscupload_views.protected_serve,name='protected_serve'),
 
     
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
 
