@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 
 def send_upload_email(job):
 
-    c = Context({'job': job,'site_url':settings.SITE_URL})
+    c = {'job': job,'site_url':settings.SITE_URL}
 
     email_subject = render_to_string(
     'upload/email/upload_email_subject.txt', c).replace('\n', '')
@@ -27,7 +27,7 @@ def send_upload_email(job):
 
 def send_processing_complete_email(job):
 
-    c = Context({'job':job,'site_url':settings.SITE_URL})
+    c = {'job':job,'site_url':settings.SITE_URL}
     email_subject = render_to_string(
         'upload/email/upload_processing_complete_subject.txt',c).replace('\n','')
 
