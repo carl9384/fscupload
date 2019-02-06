@@ -75,8 +75,6 @@ NOTE: The development server should not be used for production!
 
 ## Thanks
 
-Add a note about citations
-
 These tutorial links helped:
 http://www.bogotobogo.com/python/Django/Python_Django_Image_Files_Uploading_Example.php
 https://realpython.com/blog/python/asynchronous-tasks-with-django-and-celery/
