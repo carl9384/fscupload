@@ -5,7 +5,7 @@ from django.core.validators import FileExtensionValidator
 from upload.models import Fscjob
 
 no_space = RegexValidator(r'^[^\S]+$',message='No spaces allowed')
-alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$',message='Only alphanumeric characters are allowed.')
+alphanumeric = RegexValidator(r'^[0-9a-zA-Z_]*$',message='Only alphanumeric characters and underscores are allowed.')
 fileextension = FileExtensionValidator(['mrc','map'],message='Only .mrc and .map files can be processed. Please convert your maps to those format.')
 
 class FscjobForm(forms.ModelForm):
