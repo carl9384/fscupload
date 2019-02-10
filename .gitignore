@@ -1,7 +1,6 @@
 db.sqlite3
 dump.rdb
 fscupload/__pycache__/*
-fscupload/settings.py
 media/*
 static/admin/*
 static/upload/*
