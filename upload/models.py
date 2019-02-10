@@ -3,6 +3,8 @@ from django.db import models
 from django.utils import timezone
 from hashlib import sha512
 
+from celery.result import AsyncResult
+
 # Create your models here.
 
 def generate_uniquestring(numchars):
@@ -18,7 +20,7 @@ def generate_uniquestring(numchars):
 class Fscjob(models.Model):
 
     emailaddress = models.EmailField(verbose_name="Email Address")
-    jobname = models.CharField(max_length=15,default="3dfsc_run",verbose_name="Job Name")
+    jobname = models.CharField(max_length=35,default="",verbose_name="Job Name")
     halfmap1file = models.FileField(verbose_name="Half-map 1 file")
     halfmap2file = models.FileField(verbose_name="Half-map 2 file")
     fullmapfile  = models.FileField(verbose_name="Full map file")
@@ -32,8 +34,14 @@ class Fscjob(models.Model):
     password = models.CharField(max_length=20,default='defaultpassword',verbose_name="Password")
     created_date = models.DateTimeField(auto_now_add=True,verbose_name="Date created")
     modified_date = models.DateTimeField(auto_now=True,verbose_name="Date last modified")
-    completefile = models.FileField(verbose_name="Results file name")
+    completefile = models.FileField(verbose_name="Zipped results file")
+    histogram_file = models.FileField(verbose_name="Histogram png file",null=True)
+    ftplot_file = models.FileField(verbose_name="FTPlot jpg file",null=True)
+    plots_file = models.FileField(verbose_name="Plots jpg file",null=True)
+    
     user = models.ForeignKey(User)
+
+    task_id = models.CharField(max_length=36,default='',null=True,verbose_name="Task ID")
 
 
 
@@ -68,6 +76,16 @@ class Fscjob(models.Model):
     def get_url(self):
         return self.halfmap1file.url
 
-def to_link(filename):
-    return "<a href='%s' download>%s</a>" % (filename,filename)
+    def to_link(filename):
+        return "<a href='%s' download>%s</a>" % (filename,filename)
+
+    @property
+    def status(self):
+        status = ''
+        if self.task_id:
+            status = AsyncResult(self.task_id).status
+        else:
+            status = 'DONE'
+
+        return status
 

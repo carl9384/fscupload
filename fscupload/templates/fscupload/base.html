@@ -2,13 +2,13 @@
 {% load bootstrap3 %}
 
 {% block title %}
-     Remote 3DFSC Processing
+Remote 3DFSC Processing Server
 {% endblock %}
 
 {% block bootstrap3_content %}
 {% block nav %}
-
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default"></nav> <!-- Dummy nav bar -->
+<nav class="navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#3dfsc-navbar">
@@ -21,7 +21,8 @@
 
     <div class="collapse navbar-collapse" id="3dfsc-navbar">
     <ul class="nav navbar-nav">
-    <li {% if "/upload/" == request.path %}class="active"{% endif %}><a href="{% url 'upload:index' %}">Info</a></li>
+    <li {% if "/upload/" == request.path %}class="active"{% endif %}><a href="{% url 'upload:index' %}">Home</a></li>
+    <li {% if "info" in request.path %}class="active"{% endif %}><a href="{% url 'upload:info' %}">About</a></li>
     {% if user.is_authenticated %}
     <li {% if "submit" in request.path %}class="active"{% endif %}><a href="{% url 'upload:submit' %}">Submit Job</a></li>
     <li {% if "results" in request.path %}class="active"{% endif %}><a href="{% url 'upload:jobs' %}">Jobs</a></li>
@@ -30,7 +31,6 @@
     {% endif %}
     <li><a href="{% url 'logout' %}">Log Out{% if request.user.is_superuser %} (staff){% endif %}</a></li>
     {% else %}
-
     <li><a href="{% url 'login' %}">Login</a></li>
     <li><a href="{% url 'registration_register' %}">Register</a></li>
 
@@ -53,20 +53,46 @@
   </div !--container-fluid-->
 </nav !--nav-->
 
+<div class="container">
+	<nav class="navbar-brand navbar-default navbar-fixed-bottom" style="text-align: center;">
+		<font size="2">
+		<span class="text-muted">MIT License. Copyright &copy; 2017 New York Structural Biology Center, Salk Institute for Biological Studies &emsp; | &emsp;</span>
+		<span class="text-muted">Philip R Baldwin, Carl Negro, Yong Zi Tan, Dmitry Lyumkis &emsp; | &emsp;</span>
+		<span class="text-muted"><a href = "http://dx.doi.org/10.1038/nmeth.4347">Nature Methods Article</a></span>
+		</font>
+	</nav>
+</div>
 
-<!--style>
-body { 
-    padding-top: 65px; 
-}
-</style-->
+
 {% endblock %}
     <div class="container">
-		<h1>Remote 3DFSC Processing</h1>
+		<body>
+		<h1>Remote 3DFSC Processing Server</h1>
 
         {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
-
-	
         {% block content %}{% endblock %}
+        {% block style %} 
+        <style>
+            table {
+              width:100%;
+              padding:20px ;
+              border: 20px solid;
+              border-width: thin;
+            }
+
+            th,tr,td {
+              padding: 20px;
+              border: 20px solid;
+              border-width: thin;
+              text-align: left;
+            }
+        </style>
+		<br><br>
+        </body>
+		{% endblock %}
     </div>
 
+{% endblock %}
+
+{% block js %}
 {% endblock %}

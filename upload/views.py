@@ -21,9 +21,10 @@ def generate_uniquestring():
 def submit(request):
 
     if request.method == 'POST':
-
         form = FscjobForm(request.POST, request.FILES)
+        print("form is ",form)
         if form.is_valid():
+            print("VALID")
             num_jobs = Fscjob.objects.filter(user=request.user).count()
             newdoc = Fscjob(halfmap1file = request.FILES['halfmap1file'],
                                 halfmap2file = request.FILES['halfmap2file'],
@@ -55,34 +56,34 @@ def submit(request):
                 newdoc.maskfile.name = uniquefolder+newdoc.maskfile.name
             
             newdoc.save()
+            print("newdoc saved")
             send_upload_email_task.delay(newdoc.id)
+            print("email sent")
             process_3DFSC_task.delay(newdoc.id)
+            print("process complete")
+            return HttpResponseRedirect(reverse('upload:uploadcomplete'))
 
         else:
-
-            form = FscjobForm()
-            
-            # Redirect to the after POST
-            return HttpResponseRedirect(reverse('upload:index'))
         
-        return HttpResponseRedirect(reverse('upload:uploadcomplete'))
+            form = form
+            print("form is ",form)           
+            # Redirect to the after POST
+           
+            return render(request,'upload/submit.html',{'form':form})
     else:
         form = FscjobForm() # A empty, unbound form
 
-    # Load documents for the list page
-    documents = Fscjob.objects.all()
-
-    # Render list page with the documents and the form
-
-    return render(request,'upload/submit.html',{'documents': documents,'form':form})
+    return render(request,'upload/submit.html',{'form':form})
 
 def index(request):
     return render(request,'upload/index.html',{})
 
 def uploadcomplete(request):
     return render(request,'upload/uploadcomplete.html',{"DEFAULT_FROM_EMAIL":settings.DEFAULT_FROM_EMAIL})
-
-
+	
+def info(request):
+    return render(request,'upload/info.html',{})
+	
 class fscjobListView(ListView):
 
     model = Fscjob
@@ -106,6 +107,7 @@ class fscjobDetailView(DetailView):
         context['now'] = timezone.now()
         context['SITE_URL'] = settings.SITE_URL
         context['MEDIA_URL'] = settings.MEDIA_URL
+        #context['histogram_url'] = 
         print("fscjobDetailView context is",context)
         return context
 

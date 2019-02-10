@@ -1,36 +1,25 @@
 from django import forms
-from upload.models import Fscjob
-from upload.tasks import send_upload_email_task
+from django.core.validators import RegexValidator
+from django.core.validators import FileExtensionValidator
 
-# Based on the instructions at https://realpython.com/blog/python/asynchronous-tasks-with-django-and-celery/
+from upload.models import Fscjob
+
+no_space = RegexValidator(r'^[^\S]+$',message='No spaces allowed')
+alphanumeric = RegexValidator(r'^[0-9a-zA-Z_]*$',message='Only alphanumeric characters and underscores are allowed.')
+fileextension = FileExtensionValidator(['mrc','map'],message='Only .mrc and .map files can be processed. Please convert your maps to those format.')
 
 class FscjobForm(forms.ModelForm):
-
     honeypot = forms.CharField(widget=forms.HiddenInput(), required=False)
+    jobname = forms.CharField(min_length=5,max_length=40, required=True,validators=[alphanumeric])
+    apix = forms.FloatField(min_value=0.00001,max_value=100.0,required=True)
+    halfmap1file = forms.FileField(required=True,validators=[fileextension])
+    halfmap2file = forms.FileField(required=True,validators=[fileextension])
+    fullmapfile = forms.FileField(required=True,validators=[fileextension])
+    maskfile = forms.FileField(required=False,validators=[fileextension])
 
 
     class Meta:
         model = Fscjob
-        exclude = ['emailaddress','uniquefolder','password','completefile','user']
+        exclude = ['emailaddress','uniquefolder','password','completefile','user','histogram_file','ftplot_file','plots_file','task_id']
         widgets = { 'apix': forms.TextInput({'size': 10})}
-
-
-    def send_email2(self,job_id):
-        print('inside send_email function')
-        # try to trick spammers by checking whether the honeypot field is
-        # filled in; not super complicated/effective but it works
-        if self.cleaned_data['honeypot']:
-            return False
-
-        job = Fscjob.objects.get(pk=job_id)
-
-        message = "Hi,\n \
-                  Your 3DFSC job %s is now being processed.\n \
-                  You will receive an email when it is complete with a download link.\n\n  \
-                  Thanks,\n \
-                  \n\n \
-                  YTZ, PRB, DL" %(job.jobname)
-
-        send_upload_email_task.delay(
-            self.cleaned_data['emailaddress'],message,job_id)
 

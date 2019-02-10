@@ -9,6 +9,7 @@ app_name = 'upload'
 urlpatterns =[
 
     url(r'^$', upload_views.index, name='index'),
+	url(r'^info/$', upload_views.info, name='info'),
     url(r'^submit/$', login_required(upload_views.submit), name='submit'),
     url(r'^uploadcomplete/$',login_required(upload_views.uploadcomplete), name='uploadcomplete'),
     url(r'^jobs/$',login_required(upload_views.fscjobListView.as_view()), name='jobs'),

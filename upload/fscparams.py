@@ -18,7 +18,19 @@ class fscparams:
             self.mask = os.path.join(settings.MEDIA_ROOT,job.maskfile.name)
         else:
             self.mask = ''
+
+        if hasattr(settings,'CELERY_USE_GPU'):
+            self.gpu = settings.CELERY_USE_GPU
+        else:
+            self.gpu = False
+
+        if self.gpu:
+            print("Using GPU with Numba CUDA")
+        else:
+            print("Using CPU with Numba")
+
         self.apix = float(job.apix)
+        
         self.ThreeDFSC = job.jobname
         self.dthetaInDegrees = job.coneangle
         self.histogram = self.ThreeDFSC+"_histogram"
@@ -26,7 +38,7 @@ class fscparams:
         self.ThresholdForSphericity = job.sphericitythresh
         self.HighPassFilter = job.highpassfilter
         self.Skip3DFSCGeneration = "False"
-
+        self.numThresholdsForSphericityCalcs = 0
 
 
 

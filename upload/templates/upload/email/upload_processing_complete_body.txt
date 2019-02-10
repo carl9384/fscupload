@@ -1,16 +1,6 @@
 Hi,
 
-Your {{job.jobname | safe }} 3DFSC job is now complete You can view the results at {{site_url}}/upload/results.
-
-You can download your compressed data here: 
-
-	{{site_url}}{{job.completefile.url}}
-
-The password for the .zip file is
-
-	{{job.password}}
-
-
+Your {{job.jobname | safe }} 3DFSC job is now complete You can view and download the results at {{site_url}}/upload/results/{{job.id}}.
 
 Thanks for using 3DFSC,
 

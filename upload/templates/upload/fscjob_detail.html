@@ -7,38 +7,87 @@
 {% block content %}
 <div class="container">
     <div class="row">
+
         <div class="col-lg-6">
-	<br><br>
-        <p>Job name: {{fscjob.jobname}}</p>
-	<p>Compressed Results: <a href="{{ SITE_URL }}{{fscjob.completefile.url}}">{{fscjob.jobname}}.zip</a></p>
-	<p>Password for results .zip: {{fscjob.password}}</p>
-	<p>Halfmap1: {{fscjob.halfmap1file.name}}</p>
-	<p>Halfmap2: {{fscjob.halfmap2file.name}}</p>
-	<p>Fullmap:  {{fscjob.fullmapfile.name}}</p>
-	{% if fscjob.maskfile %}
-        <p>Mask: {{fscjob.maskfile.name}}</p>
-	{% else %}
-	<p>Mask: (no mask applied)</p>
-	{% endif %}
-	<p>Pixel Size: {{fscjob.apix}}</p>
-	<p>Cone Angle: {{fscjob.coneangle}}</p>
-	<p>FSC Cutoff: {{fscjob.fsccutoff}}</p>
-	<p>Sphericity Threshold: {{fscjob.sphericitythresh}}</p>
-	<p>High Pass Filter(A): {{fscjob.highpassfilter}}</p>
-	
-        </div !--col-lg-3-->
-	<div class="col-lg-6">
-            <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/{{fscjob.jobname}}_histogram.png" alt="FSC's">
-        </div !--col-lg-offset-3 col-lg-6 col-lg-offset-3-->
-    </div !--row-->
+        <h3>Parameters</h3>
+      <table>
+      
+      <tbody>
+        <tr><th>Halfmap 1 File</th><td>{{fscjob.halfmap1file.name}}</td></tr>
+        <tr><th>Halfmap 2 File</th><td>{{fscjob.halfmap2file.name}}</td></tr>
+        <tr><th>Full Map File</th><td>{{fscjob.fullmapfile.name}}</td></tr>
+        {% if fscjob.maskfile %}
+        <tr><th>Mask File</th><td>{{fscjob.maskfile.name}}</td></tr>
+        {% else %}
+        <tr><th>Mask File</th><td>(no mask applied)</td></tr>
+        {% endif %}
+        <tr><th>Pixel Size</th><td>{{fscjob.apix}}</td></tr>
+        <tr><th>Cone Angle</th><td>{{fscjob.coneangle}}</td></tr>
+        <tr><th>FSC Cutoff</th><td>{{fscjob.fsccutoff}}</td></tr>
+        <tr><th>Sphericity Threshold</th><td>{{fscjob.sphericitythresh}}</td></tr>
+        <tr><th>High Pass Filter (A)</th><td>{{fscjob.highpassfilter}}</td></tr>
+      </tbody>
+
+    </table>
+        </div><!--col-lg-6-->
+
+        <div class="col-lg-6">
+
+     <h3>Results</h3>
+    <table>
+      <tbody>
+        <tr><th>Job ID</td><td>{{fscjob.id}}</td></tr>
+        <tr><th>Job Name</th><td>{{fscjob.jobname}}</td></tr>
+        <tr><th>Job Status</th><td>{{fscjob.status}}</td></tr>
+        <tr><th>Last Modified</th><td>{{fscjob.modified_date|date:"m/d/Y - H:m:s"}}</td></tr>
+        {% if fscjob.status == 'SUCCESS' %}
+        <tr><th>Compressed Results</th><td><a href="{{ SITE_URL }}{{fscjob.completefile.url}}">{{fscjob.jobname}}.zip</a></td></tr>
+        {% elif fscjob.status == 'FAILURE'%}
+        <tr><th>Compressed Results</th><td>Job failed. Please contact an administrator.</td></tr>
+        {% else %}
+        <tr><th>Compressed Results</th><td>{{fscjob.status}}</td></tr>
+
+
+        {% endif %}
+        <tr><th>Password for Compressed Results</th><td>{{fscjob.password}}</td></tr>
+	</tbody>
+    </table>
+    <div class="row">
+	<div class="col-lg-8">
+            <img class="histogram" src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/{{fscjob.jobname}}_histogram.png" alt="FSC's">
+    </div><!--col-lg-8-->
+    <div class="col-lg-4"></div><!--col-lg-4-->
+    </div><!--row--> 
+
+        </div><!--col-lg-6-->
+
+
+
+    </div><!--row-->
     <div class="row">
         <div class="col-lg-6">	
-            <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/Plots{{fscjob.jobname}}.jpg" alt="FSC's">
+            <img class="plots" src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/Plots{{fscjob.jobname}}.jpg" alt="FSC's">
 	</div !--col-lg-6-->
 	<div class="col-lg-6">
-            <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/FTPlot{{fscjob.jobname}}.jpg" alt="FSC's">
+            <img class="plots" src="{{ SITE_URL }}{{ MEDIA_URL }}{{fscjob.uniquefolder}}/Results_{{fscjob.jobname}}/FTPlot{{fscjob.jobname}}.jpg" alt="FSC's">
 	</div !--col-lg-6-->
     </div !--row-->
 
 </div !--container-->
+{% endblock %}
+
+{% block style %}
+{{block.super}}
+  <style>
+  .table-header {
+  border-bottom-style: none;
+}
+  .histogram {
+    max-height:40%;
+}
+
+  .plots {
+    max-height:200%;
+}
+  </style>
 {% endblock %}
