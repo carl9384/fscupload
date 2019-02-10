@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from hashlib import sha512
+
 from celery.result import AsyncResult
 
 # Create your models here.
