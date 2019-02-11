@@ -32,7 +32,7 @@ def add(self,x, y):
     sleep(2)
     return self.request.id
 
-@task(name="process_3DFSC_task",bind=True)
+@task(name="process_3DFSC_task",bind=True, queue='gpu')
 def process_3DFSC_task(self,job_id):
 
     job = Fscjob.objects.get(pk=job_id)
